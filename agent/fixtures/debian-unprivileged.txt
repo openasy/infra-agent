@@ -1,0 +1,747 @@
+
+@@meta
+format 1
+uid 1000
+user openasy
+time 1792494366
+sudo rules
+
+@@hostname
+web-1
+
+@@machine-id
+b8ccbab8548d4e5da604b05a79981e8e
+
+@@os-release
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+NAME="Debian GNU/Linux"
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
+DEBIAN_VERSION_FULL=13.7
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+@@uname
+Linux 7.0.12-linuxkit aarch64
+
+@@uptime
+1832.45 25062.81
+
+@@loadavg
+0.34 0.37 0.31 1/788 113
+
+@@cpuinfo
+processor	: 0
+processor	: 1
+processor	: 2
+processor	: 3
+processor	: 4
+processor	: 5
+processor	: 6
+processor	: 7
+processor	: 8
+processor	: 9
+processor	: 10
+processor	: 11
+processor	: 12
+processor	: 13
+
+@@meminfo
+MemTotal:        8124000 kB
+MemAvailable:    6168900 kB
+SwapTotal:       1048572 kB
+SwapFree:        1048572 kB
+
+@@virt
+docker
+
+@@dmi
+
+@@dmi-serial
+
+@@lsblk
+{
+   "blockdevices": [
+      {
+         "name": "nbd0",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd1",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd2",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd3",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd4",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd5",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd6",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd7",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "vda",
+         "type": "disk",
+         "size": 494384709632,
+         "model": null,
+         "rota": true,
+         "fstype": null,
+         "mountpoint": null,
+         "children": [
+            {
+               "name": "vda1",
+               "type": "part",
+               "size": 494383661056,
+               "model": null,
+               "rota": true,
+               "fstype": null,
+               "mountpoint": "/etc/resolv.conf"
+            }
+         ]
+      },{
+         "name": "vdb",
+         "type": "disk",
+         "size": 677666816,
+         "model": null,
+         "rota": true,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd8",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd9",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd10",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd11",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd12",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd13",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd14",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      },{
+         "name": "nbd15",
+         "type": "disk",
+         "size": 0,
+         "model": null,
+         "rota": false,
+         "fstype": null,
+         "mountpoint": null
+      }
+   ]
+}
+
+@@df
+Filesystem     1024-blocks     Used Available Capacity Mounted on
+overlay          474095688 26795756 423143724       6% /
+tmpfs                65536        0     65536       0% /dev
+shm                  65536        0     65536       0% /dev/shm
+/dev/vda1        474095688 26795756 423143724       6% /etc/hosts
+tmpfs               812400      260    812140       1% /run/docker.sock
+tmpfs                    4        0         4       0% /proc/scsi
+
+@@mounts
+overlay / overlay rw,relatime,lowerdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4361/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4304/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4240/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4239/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4238/fs:/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/3521/fs,upperdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4362/fs,workdir=/var/lib/desktop-containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/4362/work,nouserxattr 0 0
+proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+tmpfs /dev tmpfs rw,nosuid,size=65536k,mode=755 0 0
+devpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=666 0 0
+sysfs /sys sysfs ro,nosuid,nodev,noexec,relatime 0 0
+cgroup /sys/fs/cgroup cgroup2 ro,nosuid,nodev,noexec,relatime 0 0
+mqueue /dev/mqueue mqueue rw,nosuid,nodev,noexec,relatime 0 0
+shm /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,size=65536k 0 0
+/dev/vda1 /etc/hostname ext4 rw,relatime,discard 0 0
+/dev/vda1 /etc/hosts ext4 rw,relatime,discard 0 0
+/dev/vda1 /etc/resolv.conf ext4 rw,relatime,discard 0 0
+tmpfs /run/docker.sock tmpfs rw,nosuid,nodev,noexec,relatime,size=812400k,mode=755 0 0
+proc /proc/bus proc ro,nosuid,nodev,noexec,relatime 0 0
+proc /proc/fs proc ro,nosuid,nodev,noexec,relatime 0 0
+proc /proc/irq proc ro,nosuid,nodev,noexec,relatime 0 0
+proc /proc/sys proc ro,nosuid,nodev,noexec,relatime 0 0
+proc /proc/sysrq-trigger proc ro,nosuid,nodev,noexec,relatime 0 0
+tmpfs /proc/interrupts tmpfs rw,nosuid,size=65536k,mode=755 0 0
+tmpfs /proc/kcore tmpfs rw,nosuid,size=65536k,mode=755 0 0
+tmpfs /proc/keys tmpfs rw,nosuid,size=65536k,mode=755 0 0
+tmpfs /proc/scsi tmpfs ro,relatime,size=4k,nr_inodes=1 0 0
+tmpfs /proc/timer_list tmpfs rw,nosuid,size=65536k,mode=755 0 0
+tmpfs /sys/firmware tmpfs ro,relatime,size=4k,nr_inodes=1 0 0
+
+@@ip-addr
+[{"ifindex":1,"ifname":"lo","flags":["LOOPBACK","UP","LOWER_UP"],"mtu":65536,"qdisc":"noqueue","operstate":"UNKNOWN","group":"default","txqlen":1000,"link_type":"loopback","address":"00:00:00:00:00:00","broadcast":"00:00:00:00:00:00","addr_info":[{"family":"inet","local":"127.0.0.1","prefixlen":8,"scope":"host","label":"lo","valid_life_time":4294967295,"preferred_life_time":4294967295},{"family":"inet6","local":"::1","prefixlen":128,"scope":"host","protocol":"kernel_lo","valid_life_time":4294967295,"preferred_life_time":4294967295}]},{"ifindex":2,"link":null,"ifname":"tunl0","flags":["NOARP"],"mtu":1480,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"ipip","address":"0.0.0.0","broadcast":"0.0.0.0","addr_info":[]},{"ifindex":3,"link":null,"ifname":"gre0","flags":["NOARP"],"mtu":1476,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"gre","address":"0.0.0.0","broadcast":"0.0.0.0","addr_info":[]},{"ifindex":4,"link":null,"ifname":"gretap0","flags":["BROADCAST","MULTICAST"],"mtu":1462,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"ether","address":"00:00:00:00:00:00","broadcast":"ff:ff:ff:ff:ff:ff","addr_info":[]},{"ifindex":5,"link":null,"ifname":"erspan0","flags":["BROADCAST","MULTICAST"],"mtu":1450,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"ether","address":"00:00:00:00:00:00","broadcast":"ff:ff:ff:ff:ff:ff","addr_info":[]},{"ifindex":6,"link":null,"ifname":"ip_vti0","flags":["NOARP"],"mtu":1480,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"ipip","address":"0.0.0.0","broadcast":"0.0.0.0","addr_info":[]},{"ifindex":7,"link":null,"ifname":"ip6_vti0","flags":["NOARP"],"mtu":1428,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"tunnel6","address":"::","broadcast":"::","permaddr":"de5e:ff8d:cf1b::","addr_info":[]},{"ifindex":8,"link":null,"ifname":"sit0","flags":["NOARP"],"mtu":1480,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"sit","address":"0.0.0.0","broadcast":"0.0.0.0","addr_info":[]},{"ifindex":9,"link":null,"ifname":"ip6tnl0","flags":["NOARP"],"mtu":1452,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"tunnel6","address":"::","broadcast":"::","permaddr":"1e3d:3289:6063::","addr_info":[]},{"ifindex":10,"link":null,"ifname":"ip6gre0","flags":["NOARP"],"mtu":1448,"qdisc":"noop","operstate":"DOWN","group":"default","txqlen":1000,"link_type":"gre6","address":"::","broadcast":"::","permaddr":"1278:8044:18b7::","addr_info":[]},{"ifindex":11,"link_index":199,"ifname":"eth0","flags":["BROADCAST","MULTICAST","UP","LOWER_UP"],"mtu":65535,"qdisc":"noqueue","operstate":"UP","group":"default","link_type":"ether","address":"7a:4a:c4:e3:84:cb","broadcast":"ff:ff:ff:ff:ff:ff","link_netnsid":0,"addr_info":[{"family":"inet","local":"172.17.0.2","prefixlen":16,"broadcast":"172.17.255.255","scope":"global","label":"eth0","valid_life_time":4294967295,"preferred_life_time":4294967295}]}]
+
+@@ip-route
+[{"dst":"default","gateway":"172.17.0.1","dev":"eth0","flags":[]},{"dst":"172.17.0.0/16","dev":"eth0","protocol":"kernel","scope":"link","prefsrc":"172.17.0.2","flags":[]}]
+
+@@resolv
+nameserver 192.168.65.7
+
+@@listen
+tcp LISTEN 0      128    0.0.0.0:22   0.0.0.0:*
+tcp LISTEN 0      5      0.0.0.0:8088 0.0.0.0:*
+tcp LISTEN 0      128       [::]:22      [::]:*
+@ok
+
+@@ps
+      1       0 root                              1.2  7528       2 sshd            sshd: /usr/sbin/sshd -D -e [listener] 0 of 10-100 startups
+     20       1 root                              2.4 18060       2 python3         python3 -m http.server 8088 --bind 0.0.0.0
+     98       0 openasy                           0.0  1564       0 sh              sh -s
+    127      98 openasy                           0.0  3244       0 ps              ps -eo pid=,ppid=,user:32=,pcpu=,rss=,etimes=,comm=,args=
+
+@@services
+
+@@unit-files
+apt-daily-upgrade.service                    static   -
+apt-daily.service                            static   -
+autovt@.service                              alias    -
+capsule@.service                             static   -
+console-getty.service                        disabled disabled
+container-getty@.service                     static   -
+cron.service                                 enabled  enabled
+cryptdisks-early.service                     masked   enabled
+cryptdisks.service                           masked   enabled
+dbus-org.freedesktop.hostname1.service       alias    -
+dbus-org.freedesktop.locale1.service         alias    -
+dbus-org.freedesktop.login1.service          alias    -
+dbus-org.freedesktop.timedate1.service       alias    -
+debug-shell.service                          disabled disabled
+dpkg-db-backup.service                       static   -
+emergency.service                            static   -
+fstrim.service                               static   -
+getty-static.service                         static   -
+getty@.service                               enabled  enabled
+hwclock.service                              masked   enabled
+initrd-cleanup.service                       static   -
+initrd-parse-etc.service                     static   -
+initrd-switch-root.service                   static   -
+initrd-udevadm-cleanup-db.service            static   -
+kmod-static-nodes.service                    static   -
+kmod.service                                 alias    -
+ldconfig.service                             static   -
+modprobe@.service                            static   -
+nftables.service                             disabled enabled
+pam_namespace.service                        static   -
+procps.service                               alias    -
+quotaon-root.service                         static   -
+quotaon@.service                             static   -
+rc-local.service                             static   -
+rescue.service                               static   -
+serial-getty@.service                        disabled enabled
+ssh.service                                  enabled  enabled
+sshd-keygen.service                          enabled  enabled
+sshd.service                                 alias    -
+sshd@.service                                static   -
+sudo.service                                 masked   enabled
+system-update-cleanup.service                static   -
+systemd-ask-password-console.service         static   -
+systemd-ask-password-wall.service            static   -
+systemd-backlight@.service                   static   -
+systemd-battery-check.service                static   -
+systemd-binfmt.service                       static   -
+systemd-boot-check-no-failures.service       disabled disabled
+systemd-bsod.service                         static   -
+systemd-confext.service                      disabled enabled
+systemd-creds@.service                       static   -
+systemd-exit.service                         static   -
+systemd-firstboot.service                    static   -
+systemd-fsck-root.service                    static   -
+systemd-fsck@.service                        static   -
+systemd-growfs-root.service                  static   -
+systemd-growfs@.service                      static   -
+systemd-halt.service                         static   -
+systemd-hibernate-clear.service              static   -
+systemd-hibernate-resume.service             static   -
+systemd-hibernate.service                    static   -
+systemd-hostnamed.service                    static   -
+systemd-hybrid-sleep.service                 static   -
+systemd-initctl.service                      static   -
+systemd-journal-catalog-update.service       static   -
+systemd-journal-flush.service                static   -
+systemd-journald-sync@.service               static   -
+systemd-journald.service                     static   -
+systemd-journald@.service                    static   -
+systemd-kexec.service                        static   -
+systemd-localed.service                      static   -
+systemd-logind.service                       static   -
+systemd-machine-id-commit.service            static   -
+systemd-modules-load.service                 static   -
+systemd-network-generator.service            disabled enabled
+systemd-networkd-persistent-storage.service  static   -
+systemd-networkd-wait-online.service         disabled enabled
+systemd-networkd-wait-online@.service        disabled enabled
+systemd-networkd.service                     disabled enabled
+systemd-pcrextend@.service                   static   -
+systemd-pcrfs-root.service                   static   -
+systemd-pcrfs@.service                       static   -
+systemd-pcrlock-file-system.service          disabled enabled
+systemd-pcrlock-firmware-code.service        disabled enabled
+systemd-pcrlock-firmware-config.service      disabled enabled
+systemd-pcrlock-machine-id.service           disabled enabled
+systemd-pcrlock-make-policy.service          disabled enabled
+systemd-pcrlock-secureboot-authority.service disabled enabled
+systemd-pcrlock-secureboot-policy.service    disabled enabled
+systemd-pcrlock@.service                     static   -
+systemd-pcrmachine.service                   static   -
+systemd-pcrphase-initrd.service              static   -
+systemd-pcrphase-sysinit.service             static   -
+systemd-pcrphase.service                     static   -
+systemd-poweroff.service                     static   -
+systemd-pstore.service                       enabled  enabled
+systemd-quotacheck-root.service              static   -
+systemd-quotacheck@.service                  static   -
+systemd-random-seed.service                  static   -
+systemd-reboot.service                       static   -
+systemd-remount-fs.service                   static   -
+systemd-rfkill.service                       static   -
+systemd-soft-reboot.service                  static   -
+systemd-storagetm.service                    static   -
+systemd-suspend-then-hibernate.service       static   -
+systemd-suspend.service                      static   -
+systemd-sysctl.service                       static   -
+systemd-sysext.service                       disabled enabled
+systemd-sysext@.service                      static   -
+systemd-sysusers.service                     static   -
+systemd-timedated.service                    static   -
+systemd-tmpfiles-clean.service               static   -
+systemd-tmpfiles-setup-dev-early.service     static   -
+systemd-tmpfiles-setup-dev.service           static   -
+systemd-tmpfiles-setup.service               static   -
+systemd-tpm2-setup-early.service             static   -
+systemd-tpm2-setup.service                   static   -
+systemd-update-done.service                  static   -
+systemd-user-sessions.service                static   -
+systemd-volatile-root.service                static   -
+user-runtime-dir@.service                    static   -
+user@.service                                static   -
+x11-common.service                           masked   enabled
+
+@@timers
+
+@@cron
+/etc/crontab	SHELL=/bin/sh
+/etc/crontab	PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+/etc/crontab	17 *	* * *	root	cd / && run-parts --report /etc/cron.hourly
+/etc/crontab	25 6	* * *	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.daily; }
+/etc/crontab	47 6	* * 7	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.weekly; }
+/etc/crontab	52 6	1 * *	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.monthly; }
+/etc/cron.d/report	17 3 * * * root /usr/bin/true nightly-report
+
+@@cron-users
+
+@@passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+sshd:x:996:65534:sshd user:/run/sshd:/usr/sbin/nologin
+openasy:x:1000:1000::/home/openasy:/bin/sh
+dana:x:1001:1001::/home/dana:/bin/bash
+
+@@group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:
+fax:x:21:
+voice:x:22:
+cdrom:x:24:
+floppy:x:25:
+tape:x:26:
+sudo:x:27:
+audio:x:29:
+dip:x:30:
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+shadow:x:42:
+utmp:x:43:
+video:x:44:
+sasl:x:45:
+plugdev:x:46:
+staff:x:50:
+games:x:60:
+users:x:100:
+nogroup:x:65534:
+systemd-journal:x:999:
+systemd-network:x:998:
+crontab:x:997:
+_ssh:x:101:
+openasy:x:1000:
+dana:x:1001:
+dockerhost:x:0:openasy
+
+@@password-status
+
+@@sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# This fixes CVE-2005-4890 and possibly breaks some versions of kdesu
+# (#1011624, https://bugs.kde.org/show_bug.cgi?id=452532)
+Defaults	use_pty
+
+# This preserves proxy settings from user environments of root
+# equivalent users (group sudo)
+#Defaults:%sudo env_keep += "http_proxy https_proxy ftp_proxy all_proxy no_proxy"
+
+# This allows running arbitrary commands, but so does ALL, and it means
+# different sudoers have their choice of editor respected.
+#Defaults:%sudo env_keep += "EDITOR"
+
+# Completely harmless preservation of a user preference.
+#Defaults:%sudo env_keep += "GREP_COLOR"
+
+# While you shouldn't normally run git as root, you need to with etckeeper
+#Defaults:%sudo env_keep += "GIT_AUTHOR_* GIT_COMMITTER_*"
+
+# Per-user preferences; root won't have sensible values for them.
+#Defaults:%sudo env_keep += "EMAIL DEBEMAIL DEBFULLNAME"
+
+# "sudo scp" or "sudo rsync" should be able to use your SSH agent.
+#Defaults:%sudo env_keep += "SSH_AGENT_PID SSH_AUTH_SOCK"
+
+# Ditto for GPG agent
+#Defaults:%sudo env_keep += "GPG_AGENT_INFO"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on "@include" directives:
+
+@includedir /etc/sudoers.d
+@ok
+
+@@sudoers.d
+/etc/sudoers.d/README
+#
+# The default /etc/sudoers file created on installation of the
+# sudo  package now includes the directive:
+# 
+# 	@includedir /etc/sudoers.d
+# 
+# This will cause sudo to read and parse any files in the /etc/sudoers.d 
+# directory that do not end in '~' or contain a '.' character, if it
+# exists. It is not an error if the directory does not exist.
+# 
+# Note also, that because sudoers contents can vary widely, no attempt is 
+# made to add this directive to existing sudoers files on upgrade.  Feel free
+# to add the above directive to the end of your /etc/sudoers file to enable 
+# this functionality for existing installations if you wish!
+# Sudo versions older than 1.9.1 will only support the old syntax
+# #includedir. That means that the sudo versions in Debian bullseye (11)
+# and later will happily accept both @includedir and #includedir.
+#
+# Finally, please note that using the visudo command is the recommended way
+# to update sudoers content, since it protects against many failure modes.
+# See the man page for visudo and sudoers for more information.
+#
+/etc/sudoers.d/dana
+dana ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx
+@ok
+
+@@authorized-keys
+
+@@sshd
+
+@@modules
+selfowner
+shiftfs
+rosetta
+grpcfuse
+fakeowner
+
+@@sysctl
+net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 0
+net.ipv4.tcp_syncookies = 1
+kernel.randomize_va_space = 2
+kernel.kptr_restrict = 0
+kernel.dmesg_restrict = 1
+kernel.unprivileged_bpf_disabled = 0
+fs.protected_symlinks = 1
+fs.protected_hardlinks = 1
+fs.suid_dumpable = 0
+
+@@nft
+
+@@iptables
+
+@@dpkg
+adduser	3.152	all
+apt	3.0.3	arm64
+base-files	13.8+deb13u7	arm64
+base-passwd	3.6.7	arm64
+bash	5.2.37-2+b10	arm64
+bsdutils	1:2.41.5-0+deb13u1	arm64
+coreutils	9.7-3	arm64
+cron	3.0pl1-197	arm64
+cron-daemon-common	3.0pl1-197	all
+dash	0.5.12-12	arm64
+debconf	1.5.91	all
+debian-archive-keyring	2025.1	all
+debianutils	5.23.2	arm64
+diffutils	1:3.10-4	arm64
+docker-cli	26.1.5+dfsg1-9+deb13u1	arm64
+dpkg	1.22.22	arm64
+findutils	4.10.0-3	arm64
+gcc-14-base	14.2.0-19	arm64
+grep	3.11-4+b1	arm64
+gzip	1.13-1+deb13u1	arm64
+hostname	3.25	arm64
+init-system-helpers	1.69~deb13u1	all
+iproute2	6.15.0-1	arm64
+libacl1	2.3.2-2+b1	arm64
+libapparmor1	4.1.0-1	arm64
+libapt-pkg7.0	3.0.3	arm64
+libattr1	1:2.5.2-3	arm64
+libaudit-common	1:4.0.2-2+deb13u1	all
+libaudit1	1:4.0.2-2+deb13u1	arm64
+libblkid1	2.41.5-0+deb13u1	arm64
+libbpf1	1:1.5.0-3	arm64
+libbsd0	0.12.2-2	arm64
+libbz2-1.0	1.0.8-6	arm64
+libc-bin	2.41-12+deb13u4	arm64
+libc6	2.41-12+deb13u4	arm64
+libcap-ng0	0.8.5-4+b1	arm64
+libcap2	1:2.75-10+deb13u1+b3	arm64
+libcap2-bin	1:2.75-10+deb13u1+b3	arm64
+libcbor0.10	0.10.2-2	arm64
+libcom-err2	1.47.2-3+b12	arm64
+libcrypt1	1:4.4.38-1	arm64
+libdb5.3t64	5.3.28+dfsg2-9	arm64
+libdebconfclient0	0.280	arm64
+libedit2	3.1-20250104-1	arm64
+libelf1t64	0.192-4	arm64
+libexpat1	2.9.0-1~deb13u1	arm64
+libffi8	3.4.8-2	arm64
+libfido2-1	1.15.0-1+b1	arm64
+libgcc-s1	14.2.0-19	arm64
+libgmp10	2:6.3.0+dfsg-3	arm64
+libgssapi-krb5-2	1.21.3-5+deb13u1	arm64
+libhogweed6t64	3.10.1-1	arm64
+libjansson4	2.14-2+b3	arm64
+libk5crypto3	1.21.3-5+deb13u1	arm64
+libkeyutils1	1.6.3-6	arm64
+libkrb5-3	1.21.3-5+deb13u1	arm64
+libkrb5support0	1.21.3-5+deb13u1	arm64
+liblastlog2-2	2.41.5-0+deb13u1	arm64
+liblz4-1	1.10.0-4	arm64
+liblzma5	5.8.1-1+deb13u1	arm64
+libmd0	1.1.0-2+b1	arm64
+libmnl0	1.0.5-3	arm64
+libmount1	2.41.5-0+deb13u1	arm64
+libncursesw6	6.5+20250216-2	arm64
+libnettle8t64	3.10.1-1	arm64
+libnftables1	1.1.3-1	arm64
+libnftnl11	1.2.9-1	arm64
+libpam-modules	1.7.0-5	arm64
+libpam-modules-bin	1.7.0-5	arm64
+libpam-runtime	1.7.0-5	all
+libpam0g	1.7.0-5	arm64
+libpcre2-8-0	10.46-1~deb13u3	arm64
+libproc2-0	2:4.0.4-9	arm64
+libpython3-stdlib	3.13.5-1	arm64
+libpython3.13-minimal	3.13.5-2+deb13u5	arm64
+libpython3.13-stdlib	3.13.5-2+deb13u5	arm64
+libreadline8t64	8.2-6	arm64
+libseccomp2	2.6.0-2	arm64
+libselinux1	3.8.1-1	arm64
+libsemanage-common	3.8.1-1	all
+libsemanage2	3.8.1-1	arm64
+libsepol2	3.8.1-1	arm64
+libsmartcols1	2.41.5-0+deb13u1	arm64
+libsqlite3-0	3.46.1-7+deb13u2	arm64
+libssl3t64	3.5.7-1~deb13u3	arm64
+libstdc++6	14.2.0-19	arm64
+libsystemd-shared	257.13-1~deb13u1	arm64
+libsystemd0	257.13-1~deb13u1	arm64
+libtext-charwidth-perl	0.04-11+b4	arm64
+libtext-wrapi18n-perl	0.06-10	all
+libtinfo6	6.5+20250216-2	arm64
+libtirpc-common	1.3.6+ds-1	all
+libtirpc3t64	1.3.6+ds-1	arm64
+libudev1	257.13-1~deb13u1	arm64
+libuuid1	2.41.5-0+deb13u1	arm64
+libwrap0	7.6.q-36	arm64
+libwtmpdb0	0.73.0-3+deb13u1	arm64
+libxtables12	1.8.11-2	arm64
+libxxhash0	0.8.3-2	arm64
+libzstd1	1.5.7+dfsg-1	arm64
+login	1:4.16.0-2+really2.41.5-0+deb13u1	arm64
+login.defs	1:4.17.4-2	all
+mawk	1.3.4.20250131-1	arm64
+media-types	13.0.0	all
+mount	2.41.5-0+deb13u1	arm64
+ncurses-base	6.5+20250216-2	all
+ncurses-bin	6.5+20250216-2	arm64
+netbase	6.5	all
+nftables	1.1.3-1	arm64
+openssh-client	1:10.0p1-7+deb13u4	arm64
+openssh-server	1:10.0p1-7+deb13u4	arm64
+openssh-sftp-server	1:10.0p1-7+deb13u4	arm64
+openssl-provider-legacy	3.5.7-1~deb13u3	arm64
+passwd	1:4.17.4-2	arm64
+perl-base	5.40.1-6+deb13u1	arm64
+procps	2:4.0.4-9	arm64
+python3	3.13.5-1	arm64
+python3-minimal	3.13.5-1	arm64
+python3.13	3.13.5-2+deb13u5	arm64
+python3.13-minimal	3.13.5-2+deb13u5	arm64
+readline-common	8.2-6	all
+runit-helper	2.16.4	all
+sed	4.9-2+deb13u1	arm64
+sensible-utils	0.0.25	all
+sqv	1.3.0-3+b2	arm64
+sudo	1.9.16p2-3+deb13u2	arm64
+systemd	257.13-1~deb13u1	arm64
+sysvinit-utils	3.14-4	arm64
+tar	1.35+dfsg-3.1	arm64
+tzdata	2026c-0+deb13u1	all
+ucf	3.0052	all
+util-linux	2.41.5-0+deb13u1	arm64
+zlib1g	1:1.3.dfsg+really1.3.1-1+b1	arm64
+
+@@rpm
+
+@@apk
+
+@@end

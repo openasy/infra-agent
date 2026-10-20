@@ -1,0 +1,16 @@
+# ADR 0009: an update bot opens a pull request for every new version; CI decides.
+# When an LTS line starts (ADR 0020), add entries with target-branch: lts/X.Y for security updates.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

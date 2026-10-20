@@ -1,0 +1,26 @@
+{
+  "name": "@openasy/infra-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenAsy Infrastructure agent: installed once, it reads hosts over SSH and sends what it finds to Infrastructure. Nothing is installed on the hosts.",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openasy/infra-agent.git"
+  },
+  "scripts": {
+    "start": "node agent/main.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=26.12.0",
+    "npm": ">=11"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
