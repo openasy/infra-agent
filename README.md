@@ -28,7 +28,7 @@ docker run -d --name infra-agent --restart unless-stopped --read-only --tmpfs /t
   --cap-drop ALL --security-opt no-new-privileges \
   -v infra-agent-data:/data -v "$PWD/openasy-agent-kek:/run/secrets/openasy-agent-kek:ro" \
   -e INFRA_URL=https://infra.example.com -e INFRA_ENROLL_TOKEN=oie_... \
-  ghcr.io/openasy/infra-agent:0.2.1
+  ghcr.io/openasy/infra-agent:0.3.0
 ```
 
 Next to Infrastructure, its compose file has the agent already. The agent must be the same version as Infrastructure
@@ -42,6 +42,7 @@ Next to Infrastructure, its compose file has the agent already. The agent must b
 | `INFRA_AGENT_STATE` | `/data/agent.state` | The sealed state, on its volume |
 | `POLL_SECONDS` | `10` | How often it asks for work |
 | `CONCURRENCY` | `8` | Hosts read at the same time |
+| `OPENASY_KEYS_DIR` | `/keys` | Private keys a host in the hosts file names with `keyFile`; mount it read-only |
 | `PORT` | `9100` | `/healthz`, `/readyz` and `/metrics` |
 
 ## What it reads, and what a host needs

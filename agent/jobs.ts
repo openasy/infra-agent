@@ -2,6 +2,7 @@
 // is checked before anything connects, the script is the one built into the agent, and certificates are always for
 // the openasy principal, so a compromised Infrastructure cannot run commands of its own on any host.
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { parseFacts, type Facts } from "./facts.ts";
 import { runScript, scanHostKey, SshError, type Credential, type Endpoint, type SshFailure } from "./ssh.ts";
 
@@ -11,7 +12,8 @@ export interface Job {
   id: string;
   hostId: string;
   action: "collect" | "host-key";
-  target: Endpoint & { auth: "certificate" | "key"; containers: boolean };
+  /** keyFile: a private key in the agent's key folder, for auth key; without it, the agent's own key. */
+  target: Endpoint & { auth: "certificate" | "key"; keyFile?: string; containers: boolean };
   jump: Endpoint | null;
 }
 
@@ -23,6 +25,8 @@ export type Result =
 // The same rules Infrastructure applies, checked again: nothing ssh could read as an option.
 const ADDRESS = /^[A-Za-z0-9][A-Za-z0-9.:-]{0,252}$|^\[[0-9a-fA-F:]+\]$/;
 const USER = /^[a-z_][a-z0-9_-]{0,31}$/;
+// A file name in the key folder: no slash, so it never leaves the folder, and no leading dot.
+const KEY_FILE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
 const HOST_KEY = /^(ssh-ed25519|ecdsa-sha2-nistp(256|384|521)|ssh-rsa|sk-ssh-ed25519@openssh\.com) [A-Za-z0-9+/]+={0,2}$/;
 
 function endpoint(v: unknown, what: string): Endpoint {
@@ -44,10 +48,28 @@ export function checkJob(raw: unknown): Job {
   const t = j.target as Job["target"] | undefined;
   const target = endpoint(t, "target");
   if (t!.auth !== "certificate" && t!.auth !== "key") throw new Error("target: auth is certificate or key");
+  if (t!.keyFile !== undefined && (typeof t!.keyFile !== "string" || !KEY_FILE.test(t!.keyFile))) throw new Error("target: keyFile is a file name");
+  if (t!.keyFile !== undefined && t!.auth !== "key") throw new Error("target: keyFile needs auth key");
   if (typeof t!.containers !== "boolean") throw new Error("target: containers is true or false");
   const jump = j.jump == null ? null : endpoint(j.jump, "jump host");
   if (jump && !jump.hostKeys.length) throw new Error("jump host: its key must be pinned");
-  return { id: j.id, hostId: j.hostId, action: j.action, target: { ...target, auth: t!.auth, containers: t!.containers }, jump };
+  const keyFile = t!.keyFile !== undefined ? { keyFile: t!.keyFile } : {};
+  return { id: j.id, hostId: j.hostId, action: j.action, target: { ...target, auth: t!.auth, ...keyFile, containers: t!.containers }, jump };
+}
+
+/** The certificate, the agent's own key, or a key file the install put in the key folder; what is in it never leaves here. */
+function credential(job: Job, keys: { caPrivateKey: string; keyPrivateKey: string }, keyDir: string): Credential {
+  if (job.target.auth === "certificate") return { mode: "certificate", caPrivateKey: keys.caPrivateKey };
+  if (job.target.keyFile === undefined) return { mode: "key", privateKey: keys.keyPrivateKey };
+  let key: string;
+  try {
+    key = readFileSync(join(keyDir, job.target.keyFile), "utf8");
+  } catch {
+    throw new Error(`key file ${job.target.keyFile} is not readable in ${keyDir}`);
+  }
+  if (!/^-----BEGIN [A-Z ]*PRIVATE KEY-----/.test(key.trimStart())) throw new Error(`key file ${job.target.keyFile} is not a private key`);
+  // ssh refuses a key file without a final newline, as an editor may save it.
+  return { mode: "key", privateKey: key.endsWith("\n") ? key : `${key}\n` };
 }
 
 export interface Transport {
@@ -59,6 +81,7 @@ export async function runJob(
   raw: unknown,
   keys: { caPrivateKey: string; keyPrivateKey: string },
   transport: Transport = { runScript, scanHostKey },
+  keyDir = process.env.OPENASY_KEYS_DIR ?? "/keys",
 ): Promise<Result> {
   let job: Job;
   try {
@@ -67,9 +90,13 @@ export async function runJob(
     const r = raw as { id?: unknown; hostId?: unknown } | null;
     return { jobId: String(r?.id ?? ""), hostId: String(r?.hostId ?? ""), ok: false, error: { kind: "invalid-job", message: (err as Error).message } };
   }
-  const cred: Credential =
-    job.target.auth === "certificate" ? { mode: "certificate", caPrivateKey: keys.caPrivateKey } : { mode: "key", privateKey: keys.keyPrivateKey };
   const base = { jobId: job.id, hostId: job.hostId };
+  let cred: Credential;
+  try {
+    cred = credential(job, keys, keyDir);
+  } catch (err) {
+    return { ...base, ok: false, error: { kind: "auth-failed", message: (err as Error).message } };
+  }
   try {
     if (job.action === "host-key") return { ...base, ok: true, hostKeys: await transport.scanHostKey(job.target, cred, { jump: job.jump ?? undefined }) };
     const out = await transport.runScript(job.target, cred, `${job.target.containers ? "OPENASY_CONTAINERS=1\n" : ""}${COLLECT_SCRIPT}`, {

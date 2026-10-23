@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import { mkdtempSync, readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import { tmpdir } from "node:os";
@@ -32,6 +32,10 @@ describe("jobs from Infrastructure", () => {
     ["an action the agent does not know", { action: "run", command: "rm -rf /" }],
     ["a jump host without a pinned key", { jump: { address: "j", port: 22, user: "openasy", hostKeys: [] } }],
     ["a port out of range", { target: { ...job().target, port: 70000 } }],
+    ["a key file outside the key folder", { target: { ...job().target, auth: "key", keyFile: "../etc/passwd" } }],
+    ["a key file in a sub folder", { target: { ...job().target, auth: "key", keyFile: "a/id" } }],
+    ["a hidden key file", { target: { ...job().target, auth: "key", keyFile: ".ssh" } }],
+    ["a key file with certificate sign-in", { target: { ...job().target, keyFile: "web.key" } }],
   ])("refuses %s", async (_name, over) => {
     expect(() => checkJob(job(over))).toThrow();
     const r = await runJob(job(over), keys, {
@@ -55,6 +59,33 @@ describe("jobs from Infrastructure", () => {
     expect(script.startsWith("OPENASY_CONTAINERS=1\n# Read-only collection")).toBe(true);
     expect(r.ok && "facts" in r && r.facts.containers?.map((c) => c.name)).toContain("fx-api");
     expect(JSON.stringify(r)).not.toMatch(/hunter2-fixture|fixture-token-123/);
+  });
+
+  it("signs in with a key file from its key folder, and never sends what is in it", async () => {
+    const dir = mkdtempSync(join(tmpdir(), "keys-"));
+    const pem = "-----BEGIN OPENSSH PRIVATE KEY-----\nsecret-key-material\n-----END OPENSSH PRIVATE KEY-----\n";
+    writeFileSync(join(dir, "web.key"), pem);
+    writeFileSync(join(dir, "notes.txt"), "secret-notes");
+    const used: unknown[] = [];
+    const transport: Transport = {
+      runScript: async (_e, cred) => (used.push(cred), fixture("debian-sudo.txt")),
+      scanHostKey: async (_e, cred) => (used.push(cred), [KEY]),
+    };
+    const keyJob = (keyFile: string) => job({ target: { ...job().target, auth: "key", keyFile } });
+    expect(await runJob(keyJob("web.key"), keys, transport, dir)).toMatchObject({ ok: true });
+    expect(used).toEqual([{ mode: "key", privateKey: pem }]);
+    // Without keyFile, auth key is the agent's own key.
+    await runJob(job({ target: { ...job().target, auth: "key" } }), keys, transport, dir);
+    expect(used[1]).toEqual({ mode: "key", privateKey: "key" });
+    for (const [file, message] of [
+      ["missing.key", `key file missing.key is not readable in ${dir}`],
+      ["notes.txt", "key file notes.txt is not a private key"],
+    ]) {
+      const r = await runJob(keyJob(file!), keys, transport, dir);
+      expect(r).toEqual({ jobId: "j1", hostId: "h1", ok: false, error: { kind: "auth-failed", message } });
+      expect(JSON.stringify(r)).not.toContain("secret");
+    }
+    expect(used).toHaveLength(2);
   });
 
   it("reports the key a host presents when it changed", async () => {
