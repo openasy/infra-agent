@@ -27,7 +27,15 @@ const keyring = createKeyring(kek);
 const statePath = process.env.INFRA_AGENT_STATE ?? "/data/agent.state";
 const state = await loadState(statePath, keyring);
 const pollSeconds = Number(process.env.POLL_SECONDS ?? 10);
-const agent = await createAgent({ url, version, state, statePath, keyring, enrollToken: process.env.INFRA_ENROLL_TOKEN || undefined, concurrency: Number(process.env.CONCURRENCY ?? 8) });
+const agent = await createAgent({
+  url,
+  version,
+  state,
+  statePath,
+  keyring,
+  enrollToken: process.env.INFRA_ENROLL_TOKEN || undefined,
+  concurrency: Number(process.env.CONCURRENCY ?? 8),
+});
 
 const port = Number(process.env.PORT ?? 9100);
 const server = createServer(createAgentHandler(version, agent.status));

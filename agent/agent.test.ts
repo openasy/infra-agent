@@ -34,7 +34,10 @@ describe("jobs from Infrastructure", () => {
     ["a port out of range", { target: { ...job().target, port: 70000 } }],
   ])("refuses %s", async (_name, over) => {
     expect(() => checkJob(job(over))).toThrow();
-    const r = await runJob(job(over), keys, { runScript: () => Promise.reject(new Error("must not connect")), scanHostKey: () => Promise.reject(new Error("must not connect")) });
+    const r = await runJob(job(over), keys, {
+      runScript: () => Promise.reject(new Error("must not connect")),
+      scanHostKey: () => Promise.reject(new Error("must not connect")),
+    });
     expect(r).toMatchObject({ ok: false, error: { kind: "invalid-job" } });
   });
 
@@ -56,7 +59,10 @@ describe("jobs from Infrastructure", () => {
 
   it("reports the key a host presents when it changed", async () => {
     const other = KEY.replace("Fm", "Gm");
-    const r = await runJob(job(), keys, { runScript: async () => Promise.reject(new SshError("host-key-changed", "changed")), scanHostKey: async () => [other] });
+    const r = await runJob(job(), keys, {
+      runScript: async () => Promise.reject(new SshError("host-key-changed", "changed")),
+      scanHostKey: async () => [other],
+    });
     expect(r).toEqual({ jobId: "j1", hostId: "h1", ok: false, error: { kind: "host-key-changed", message: "changed" }, hostKeys: [other] });
   });
 });
@@ -73,9 +79,13 @@ describe("the loop", () => {
       const body = JSON.parse(gunzipSync(Buffer.concat(chunks)).toString());
       seen.push({ path: req.url!, auth: req.headers.authorization, body });
       const json = (status: number, data: unknown) => res.writeHead(status, { "content-type": "application/json" }).end(JSON.stringify(data));
-      if (req.url === "/api/v1/agent/enroll") return body.token === "enroll-1" ? json(200, { agentId: "a1", secret: "agent-secret" }) : json(401, { code: "invalid-token", detail: "used" });
+      if (req.url === "/api/v1/agent/enroll")
+        return body.token === "enroll-1" ? json(200, { agentId: "a1", secret: "agent-secret" }) : json(401, { code: "invalid-token", detail: "used" });
       if (req.headers.authorization !== "Bearer agent-secret") return json(401, { code: "invalid-token" });
-      if (req.url === "/api/v1/agent/work") return body.version === (opts.version ?? "1.0.0") ? json(200, { jobs: opts.jobs.splice(0) }) : json(409, { code: "version-mismatch", detail: "infra-agent 1.0.0 does not match infra 2.0.0" });
+      if (req.url === "/api/v1/agent/work")
+        return body.version === (opts.version ?? "1.0.0")
+          ? json(200, { jobs: opts.jobs.splice(0) })
+          : json(409, { code: "version-mismatch", detail: "infra-agent 1.0.0 does not match infra 2.0.0" });
       if (req.url === "/api/v1/agent/results") return json(202, { status: "accepted" });
       json(404, {});
     });
@@ -92,7 +102,15 @@ describe("the loop", () => {
     return {
       statePath,
       keyring,
-      a: await createAgent({ url, version: "1.0.0", state, statePath, keyring, enrollToken, transport: { runScript: async () => fixture("debian-sudo.txt"), scanHostKey: async () => [KEY] } }),
+      a: await createAgent({
+        url,
+        version: "1.0.0",
+        state,
+        statePath,
+        keyring,
+        enrollToken,
+        transport: { runScript: async () => fixture("debian-sudo.txt"), scanHostKey: async () => [KEY] },
+      }),
     };
   }
 

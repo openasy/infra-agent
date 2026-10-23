@@ -22,10 +22,16 @@ describe("collect.sh and sudoers", () => {
   });
 
   it("has no wildcards or unrestricted commands in the sudoers file", () => {
-    const rules = sudoers().split("\n").filter((l) => l.startsWith("    /") || l.startsWith("Cmnd_Alias"));
+    const rules = sudoers()
+      .split("\n")
+      .filter((l) => l.startsWith("    /") || l.startsWith("Cmnd_Alias"));
     expect(rules.join("\n")).not.toMatch(/\*|\?|\[/);
     // Every entry has arguments, or "" for none: a bare command would allow any arguments.
-    for (const entry of sudoers().split("Cmnd_Alias OPENASY_READ = ")[1]!.split("Defaults")[0]!.split(/,\s*\\?\n?\s*/).filter(Boolean)) {
+    for (const entry of sudoers()
+      .split("Cmnd_Alias OPENASY_READ = ")[1]!
+      .split("Defaults")[0]!
+      .split(/,\s*\\?\n?\s*/)
+      .filter(Boolean)) {
       expect(entry.trim().split(" ").length, entry).toBeGreaterThan(1);
     }
     expect(sudoers()).toContain('/usr/sbin/iptables-save ""');
@@ -69,7 +75,9 @@ describe("facts", () => {
     expect(f.authorizedKeys).toBeNull();
     expect(f.sshd).toBeNull();
     expect(f.ports?.every((p) => p.process === null)).toBe(true);
-    expect(f.unreadable).toEqual(expect.arrayContaining(["SSH keys that may log in", "SSH server settings", "which process listens on a port", "whether accounts have a password"]));
+    expect(f.unreadable).toEqual(
+      expect.arrayContaining(["SSH keys that may log in", "SSH server settings", "which process listens on a port", "whether accounts have a password"]),
+    );
   });
 
   it("reads Alpine and Rocky Linux without tools they lack", () => {
@@ -86,7 +94,14 @@ describe("facts", () => {
     expect(raw).toContain("hunter2-fixture");
     const f = parseFacts(raw, { containers: true });
     const api = f.containers!.find((c) => c.name === "fx-api")!;
-    expect(api).toMatchObject({ engine: "docker", image: "debian:13-slim", restartPolicy: "unless-stopped", memoryLimitBytes: 268435456, cpuLimit: 0.5, labels: { team: "payments" } });
+    expect(api).toMatchObject({
+      engine: "docker",
+      image: "debian:13-slim",
+      restartPolicy: "unless-stopped",
+      memoryLimitBytes: 268435456,
+      cpuLimit: 0.5,
+      labels: { team: "payments" },
+    });
     expect(api.envNames).toEqual(["DATABASE_PASSWORD", "LOG_LEVEL", "PATH"]);
     expect(api.command).toContain("--api-token=***");
     expect(JSON.stringify(f)).not.toMatch(/hunter2-fixture|fixture-token-123/);

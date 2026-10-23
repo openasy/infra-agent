@@ -157,7 +157,13 @@ const kv = (text: string, sep = "=") =>
       .filter((l) => l.includes(sep))
       .map((l) => {
         const i = l.indexOf(sep);
-        return [l.slice(0, i).trim(), l.slice(i + sep.length).trim().replace(/^"(.*)"$/, "$1")];
+        return [
+          l.slice(0, i).trim(),
+          l
+            .slice(i + sep.length)
+            .trim()
+            .replace(/^"(.*)"$/, "$1"),
+        ];
       }),
   ) as Record<string, string>;
 const lines = (text: string | undefined) => (text ? text.split("\n").filter((l) => l.trim() !== "") : []);
@@ -187,7 +193,18 @@ function parsePs(text: string): Proc[] {
     const m = /^\s*(\d+)\s+(\d+)\s+(\S+)\s+([\d.]+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(.*)$/.exec(l);
     if (!m) return [];
     const [, pid, ppid, user, cpu, rss, age, name, args] = m;
-    return [{ pid: Number(pid), ppid: Number(ppid), user: user!, cpu: Number(cpu), rssKb: Number(rss), ageSec: Number(age), name: name!, command: redactCommand(args!.trim()) }];
+    return [
+      {
+        pid: Number(pid),
+        ppid: Number(ppid),
+        user: user!,
+        cpu: Number(cpu),
+        rssKb: Number(rss),
+        ageSec: Number(age),
+        name: name!,
+        command: redactCommand(args!.trim()),
+      },
+    ];
   });
 }
 
@@ -257,8 +274,8 @@ function parseContainers(engine: "docker" | "podman", json: string | undefined):
     const cfg = c.Config ?? {};
     const host = c.HostConfig ?? {};
     const st = c.State ?? {};
-    const ports = Object.entries((c.NetworkSettings?.Ports ?? {}) as Record<string, Array<{ HostIp: string; HostPort: string }> | null>).flatMap(([inner, binds]) =>
-      binds?.length ? binds.map((b) => `${b.HostIp || "0.0.0.0"}:${b.HostPort}->${inner}`) : [inner],
+    const ports = Object.entries((c.NetworkSettings?.Ports ?? {}) as Record<string, Array<{ HostIp: string; HostPort: string }> | null>).flatMap(
+      ([inner, binds]) => (binds?.length ? binds.map((b) => `${b.HostIp || "0.0.0.0"}:${b.HostPort}->${inner}`) : [inner]),
     );
     return {
       engine,
@@ -274,7 +291,12 @@ function parseContainers(engine: "docker" | "podman", json: string | undefined):
       restartPolicy: host.RestartPolicy?.Name || null,
       command: redactCommand([...(cfg.Entrypoint ?? []), ...(cfg.Cmd ?? [])].join(" ")),
       ports,
-      mounts: (c.Mounts ?? []).map((m: Record<string, any>) => ({ source: String(m.Source ?? m.Name ?? ""), destination: String(m.Destination), mode: String(m.Mode ?? ""), readOnly: m.RW === false })),
+      mounts: (c.Mounts ?? []).map((m: Record<string, any>) => ({
+        source: String(m.Source ?? m.Name ?? ""),
+        destination: String(m.Destination),
+        mode: String(m.Mode ?? ""),
+        readOnly: m.RW === false,
+      })),
       networks: Object.keys(c.NetworkSettings?.Networks ?? {}),
       labels: Object.fromEntries(Object.entries((cfg.Labels ?? {}) as Record<string, string>).filter(([k]) => !SECRET_NAME.test(k))),
       // Names only: values are where secrets live.
@@ -291,7 +313,11 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
   const s = sections(output);
   // Commands run through `p` end with "@ok" when they could run; their output is the rest.
   const ran = (k: string) => /(^|\n)@ok$/.test(s.get(k) ?? "");
-  const get = (k: string) => s.get(k)?.replace(/(^|\n)@ok$/, "").trim();
+  const get = (k: string) =>
+    s
+      .get(k)
+      ?.replace(/(^|\n)@ok$/, "")
+      .trim();
   const has = (k: string) => (get(k) ?? "") !== "";
   if (!s.has("end")) throw new Error("the collection was cut off before it finished");
   const meta = kv(get("meta") ?? "", " ");
@@ -316,7 +342,17 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
   try {
     const walk = (devs: Array<Record<string, any>>): Facts["disks"] =>
       devs.flatMap((d) => [
-        ...(d.type === "disk" ? [{ name: String(d.name), type: String(d.type), sizeBytes: Number(d.size), model: d.model ? String(d.model).trim() : null, rotational: d.rota === null || d.rota === undefined ? null : d.rota === true || d.rota === "1" }] : []),
+        ...(d.type === "disk"
+          ? [
+              {
+                name: String(d.name),
+                type: String(d.type),
+                sizeBytes: Number(d.size),
+                model: d.model ? String(d.model).trim() : null,
+                rotational: d.rota === null || d.rota === undefined ? null : d.rota === true || d.rota === "1",
+              },
+            ]
+          : []),
         ...walk(d.children ?? []),
       ]);
     if (has("lsblk")) disks = walk(JSON.parse(get("lsblk")!).blockdevices ?? []);
@@ -324,10 +360,12 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
     disks = [];
   }
 
-  const mountOpts = new Map(lines(get("mounts")).map((l) => {
-    const f = l.split(" ");
-    return [f[1]!, { type: f[2]!, options: f[3]! }] as const;
-  }));
+  const mountOpts = new Map(
+    lines(get("mounts")).map((l) => {
+      const f = l.split(" ");
+      return [f[1]!, { type: f[2]!, options: f[3]! }] as const;
+    }),
+  );
   const filesystems = lines(get("df"))
     .slice(1)
     .flatMap((l) => {
@@ -351,16 +389,22 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
         addresses: (i.addr_info ?? []).map((a: Record<string, any>) => `${a.local}/${a.prefixlen}`),
       }));
     if (has("ip-route"))
-      routes = (JSON.parse(get("ip-route")!) as Array<Record<string, any>>).map((r) => ({ destination: String(r.dst), gateway: r.gateway ? String(r.gateway) : null, device: r.dev ? String(r.dev) : null }));
+      routes = (JSON.parse(get("ip-route")!) as Array<Record<string, any>>).map((r) => ({
+        destination: String(r.dst),
+        gateway: r.gateway ? String(r.gateway) : null,
+        device: r.dev ? String(r.dev) : null,
+      }));
   } catch {
     // Old iproute2 without -j: shown as empty rather than wrong.
   }
   const resolv = lines(get("resolv"));
 
-  const enabled = new Map(lines(get("unit-files")).map((l) => {
-    const [unit, state] = l.split(/\s+/);
-    return [unit!, state ?? ""] as const;
-  }));
+  const enabled = new Map(
+    lines(get("unit-files")).map((l) => {
+      const [unit, state] = l.split(/\s+/);
+      return [unit!, state ?? ""] as const;
+    }),
+  );
   const services = has("services")
     ? lines(get("services")).flatMap((l) => {
         const f = l.trim().replace(/^●\s*/, "").split(/\s+/);
@@ -373,12 +417,20 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
         const units = l.match(/\S+\.timer\s+\S+\.service/);
         if (!units) return [];
         const [unit, activates] = units[0].split(/\s+/);
-        const next = l.slice(0, l.indexOf(units[0])).trim().split(/\s{2,}/)[0] || null;
+        const next =
+          l
+            .slice(0, l.indexOf(units[0]))
+            .trim()
+            .split(/\s{2,}/)[0] || null;
         return [{ unit: unit!, activates: activates!, next: next === "-" ? null : next }];
       })
     : null;
 
-  const firewall = ran("nft") ? { tool: "nftables" as const, rules: get("nft")! } : ran("iptables") ? { tool: "iptables" as const, rules: get("iptables")!.replace(/^#.*$/gm, "").trim() } : null;
+  const firewall = ran("nft")
+    ? { tool: "nftables" as const, rules: get("nft")! }
+    : ran("iptables")
+      ? { tool: "iptables" as const, rules: get("iptables")!.replace(/^#.*$/gm, "").trim() }
+      : null;
   if (!firewall) unreadable.push("firewall rules");
 
   const packages: Facts["packages"] = [
@@ -423,7 +475,11 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
       serial: priv("dmi-serial", "hardware serial number", (t) => t.trim()),
     },
     cpu: {
-      model: cpu.find((l) => /^(model name|Model|Hardware)/.test(l))?.split(":")[1]?.trim() ?? null,
+      model:
+        cpu
+          .find((l) => /^(model name|Model|Hardware)/.test(l))
+          ?.split(":")[1]
+          ?.trim() ?? null,
       threads: cpu.filter((l) => l.startsWith("processor")).length,
       cores: new Set(cpu.filter((l) => l.startsWith("core id"))).size || null,
     },
@@ -432,7 +488,10 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
     filesystems,
     interfaces,
     routes,
-    dns: { nameservers: resolv.filter((l) => l.startsWith("nameserver")).map((l) => l.split(/\s+/)[1]!), search: resolv.filter((l) => l.startsWith("search")).flatMap((l) => l.split(/\s+/).slice(1)) },
+    dns: {
+      nameservers: resolv.filter((l) => l.startsWith("nameserver")).map((l) => l.split(/\s+/)[1]!),
+      search: resolv.filter((l) => l.startsWith("search")).flatMap((l) => l.split(/\s+/).slice(1)),
+    },
     ports: has("listen") ? parseListen(get("listen")!) : null,
     processes: parsePs(get("ps") ?? ""),
     services,
@@ -455,6 +514,10 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
     firewall,
     packages: packages.sort((a, b) => a.name.localeCompare(b.name)),
     containers,
-    unreadable: [...unreadable, ...(ran("password-status") ? [] : ["whether accounts have a password"]), ...(has("listen") && /users:/.test(get("listen")!) ? [] : has("listen") ? ["which process listens on a port"] : [])],
+    unreadable: [
+      ...unreadable,
+      ...(ran("password-status") ? [] : ["whether accounts have a password"]),
+      ...(has("listen") && /users:/.test(get("listen")!) ? [] : has("listen") ? ["which process listens on a port"] : []),
+    ],
   };
 }

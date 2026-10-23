@@ -42,6 +42,8 @@ async function call<T>(url: string, path: string, init: { secret?: string; body:
   return (await res.json()) as T;
 }
 
-export const enroll = (url: string, token: string, report: Report) => call<{ agentId: string; secret: string }>(url, "/api/v1/agent/enroll", { body: { token, ...report } });
+export const enroll = (url: string, token: string, report: Report) =>
+  call<{ agentId: string; secret: string }>(url, "/api/v1/agent/enroll", { body: { token, ...report } });
 export const work = (url: string, secret: string, report: Report) => call<{ jobs: unknown[] }>(url, "/api/v1/agent/work", { secret, body: report });
-export const sendResult = (url: string, secret: string, result: Result) => call<{ status: string }>(url, "/api/v1/agent/results", { secret, body: result, timeoutMs: 60_000 });
+export const sendResult = (url: string, secret: string, result: Result) =>
+  call<{ status: string }>(url, "/api/v1/agent/results", { secret, body: result, timeoutMs: 60_000 });

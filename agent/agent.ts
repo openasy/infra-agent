@@ -38,7 +38,12 @@ export async function createAgent(o: AgentOptions) {
     version: o.version,
     caPublicKey,
     keyPublicKey,
-    setup: { sshdConfig: sshdConfig(), sudoers: sudoers(), hostSetup: hostSetup(caPublicKey, { sudo: true, containers: false }), authorizedKey: authorizedKeyLine(keyPublicKey) },
+    setup: {
+      sshdConfig: sshdConfig(),
+      sudoers: sudoers(),
+      hostSetup: hostSetup(caPublicKey, { sudo: true, containers: false }),
+      authorizedKey: authorizedKeyLine(keyPublicKey),
+    },
     running: status.running,
   });
   const failed = (err: unknown) => {

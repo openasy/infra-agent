@@ -10,7 +10,11 @@ export const PRIVILEGED: Array<{ cmd: string; args: string; reads: string }> = [
   { cmd: "passwd", args: "-S -a", reads: "whether each account has a password or is locked, never the hash" },
   { cmd: "cat", args: "/etc/sudoers", reads: "who may use sudo" },
   { cmd: "find", args: "/etc/sudoers.d -maxdepth 1 -type f -print -exec cat {} ;", reads: "who may use sudo, from sudoers.d" },
-  { cmd: "find", args: "/root /home -maxdepth 3 -name authorized_keys -type f -print -exec ssh-keygen -lf {} ;", reads: "the fingerprints of SSH keys that may log in" },
+  {
+    cmd: "find",
+    args: "/root /home -maxdepth 3 -name authorized_keys -type f -print -exec ssh-keygen -lf {} ;",
+    reads: "the fingerprints of SSH keys that may log in",
+  },
   { cmd: "sshd", args: "-T", reads: "the SSH server's effective settings" },
   { cmd: "nft", args: "list ruleset", reads: "the firewall rules" },
   { cmd: "iptables-save", args: "", reads: "the firewall rules, without nftables" },
@@ -66,7 +70,14 @@ export function hostSetup(caPublicKey: string, opts: { sudo: boolean; containers
     "sshd -t && (systemctl reload ssh 2>/dev/null || systemctl reload sshd)",
   ];
   if (opts.sudo) {
-    lines.push("", "# Optional: the read-only commands that need root.", "cat > /etc/sudoers.d/openasy <<'OPENASY'", ...sudoers(a).trimEnd().split("\n"), "OPENASY", "chmod 440 /etc/sudoers.d/openasy && visudo -cf /etc/sudoers.d/openasy");
+    lines.push(
+      "",
+      "# Optional: the read-only commands that need root.",
+      "cat > /etc/sudoers.d/openasy <<'OPENASY'",
+      ...sudoers(a).trimEnd().split("\n"),
+      "OPENASY",
+      "chmod 440 /etc/sudoers.d/openasy && visudo -cf /etc/sudoers.d/openasy",
+    );
   }
   if (opts.containers) {
     lines.push("", "# Optional: containers. Access to the Docker socket is equivalent to root on this host (ADR 0031).", `usermod -aG docker ${a}`);

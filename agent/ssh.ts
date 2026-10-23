@@ -31,7 +31,11 @@ export class SshError extends Error {
 const CERT_VALIDITY = "-1m:+5m";
 const MAX_OUTPUT = 32 * 1024 * 1024;
 
-function exec(cmd: string, args: string[], opts: { input?: string; timeoutMs?: number } = {}): Promise<{ code: number | null; stdout: string; stderr: string; timedOut: boolean }> {
+function exec(
+  cmd: string,
+  args: string[],
+  opts: { input?: string; timeoutMs?: number } = {},
+): Promise<{ code: number | null; stdout: string; stderr: string; timedOut: boolean }> {
   return new Promise((resolve, reject) => {
     const child = spawn(cmd, args, { stdio: ["pipe", "pipe", "pipe"] });
     const out: Buffer[] = [];
@@ -103,38 +107,67 @@ async function identity(dir: string, cred: Credential, name: string, opts: { for
   if (r.code !== 0) throw new Error(`ssh-keygen failed: ${r.stderr}`);
   // -O clear: no PTY, no forwarding, no agent, no X11. A jump host needs port forwarding to reach the target.
   const permits = ["-O", "clear", ...(opts.forwarding ? ["-O", "permit-port-forwarding"] : [])];
-  r = await exec("ssh-keygen", ["-q", "-s", join(dir, "ca"), "-I", `openasy-infra-${Date.now()}`, "-n", ACCOUNT, "-V", CERT_VALIDITY, ...permits, `${key}.pub`]);
+  r = await exec("ssh-keygen", [
+    "-q",
+    "-s",
+    join(dir, "ca"),
+    "-I",
+    `openasy-infra-${Date.now()}`,
+    "-n",
+    ACCOUNT,
+    "-V",
+    CERT_VALIDITY,
+    ...permits,
+    `${key}.pub`,
+  ]);
   if (r.code !== 0) throw new Error(`could not sign the certificate: ${r.stderr}`);
   return ["-i", key, "-o", `CertificateFile=${key}-cert.pub`];
 }
 
 function baseOptions(knownHosts: string, check: "yes" | "accept-new", timeoutSec: number) {
   return [
-    "-F", "/dev/null",
-    "-o", "BatchMode=yes",
-    "-o", "IdentitiesOnly=yes",
-    "-o", `StrictHostKeyChecking=${check}`,
-    "-o", `UserKnownHostsFile=${knownHosts}`,
-    "-o", "GlobalKnownHostsFile=/dev/null",
-    "-o", "UpdateHostKeys=no",
-    "-o", `ConnectTimeout=${timeoutSec}`,
-    "-o", "ServerAliveInterval=10",
-    "-o", "ServerAliveCountMax=2",
-    "-o", "RequestTTY=no",
-    "-o", "ForwardAgent=no",
-    "-o", "ForwardX11=no",
-    "-o", "ClearAllForwardings=yes",
-    "-o", "LogLevel=ERROR",
+    "-F",
+    "/dev/null",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "IdentitiesOnly=yes",
+    "-o",
+    `StrictHostKeyChecking=${check}`,
+    "-o",
+    `UserKnownHostsFile=${knownHosts}`,
+    "-o",
+    "GlobalKnownHostsFile=/dev/null",
+    "-o",
+    "UpdateHostKeys=no",
+    "-o",
+    `ConnectTimeout=${timeoutSec}`,
+    "-o",
+    "ServerAliveInterval=10",
+    "-o",
+    "ServerAliveCountMax=2",
+    "-o",
+    "RequestTTY=no",
+    "-o",
+    "ForwardAgent=no",
+    "-o",
+    "ForwardX11=no",
+    "-o",
+    "ClearAllForwardings=yes",
+    "-o",
+    "LogLevel=ERROR",
   ];
 }
 
 function classify(stderr: string, timedOut: boolean): SshError {
   const msg = stderr.trim().split("\n").filter(Boolean).pop() ?? "ssh failed";
   if (timedOut) return new SshError("timeout", "The collection took too long and was stopped.");
-  if (/REMOTE HOST IDENTIFICATION HAS CHANGED|Host key for .* has changed/i.test(stderr)) return new SshError("host-key-changed", "The host key changed. Check the host, then accept the new key.");
+  if (/REMOTE HOST IDENTIFICATION HAS CHANGED|Host key for .* has changed/i.test(stderr))
+    return new SshError("host-key-changed", "The host key changed. Check the host, then accept the new key.");
   if (/No .*host key is known|Host key verification failed/i.test(stderr)) return new SshError("host-key-unknown", "The host key is not pinned yet.");
   if (/Permission denied/i.test(stderr)) return new SshError("auth-failed", `Not allowed to log in: ${msg}`);
-  if (/Connection refused|timed out|No route to host|Could not resolve|Network is unreachable|Connection closed by|kex_exchange_identification/i.test(stderr)) return new SshError("unreachable", msg);
+  if (/Connection refused|timed out|No route to host|Could not resolve|Network is unreachable|Connection closed by|kex_exchange_identification/i.test(stderr))
+    return new SshError("unreachable", msg);
   return new SshError("error", msg);
 }
 
