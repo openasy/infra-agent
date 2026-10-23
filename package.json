@@ -1,6 +1,6 @@
 {
   "name": "@openasy/infra-agent",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "OpenAsy Infrastructure agent: installed once, it reads hosts over SSH and sends what it finds to Infrastructure. Nothing is installed on the hosts.",
   "license": "AGPL-3.0-only",
