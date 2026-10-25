@@ -63,6 +63,8 @@ describe("facts", () => {
     expect(f.sudo).toContainEqual(expect.stringContaining("dana ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx"));
     expect(f.sshd?.permitrootlogin).toBeDefined();
     expect(f.packages.length).toBeGreaterThan(100);
+    // The source package, which advisories name: bsdutils is built from util-linux.
+    expect(f.packages.find((p) => p.name === "bsdutils")).toMatchObject({ manager: "dpkg", source: "util-linux", sourceVersion: "2.41.5-0+deb13u1" });
     expect(f.cron).toContainEqual({ source: "/etc/cron.d/report", entry: "17 3 * * * root /usr/bin/true nightly-report" });
     expect(f.unreadable).not.toContain("SSH keys that may log in");
     // Read with the sudo rules and empty is "none", not "not readable".
@@ -84,9 +86,11 @@ describe("facts", () => {
     const a = parseFacts(fixture("alpine-unprivileged.txt"), { containers: false });
     expect(a.system.os.id).toBe("alpine");
     expect(a.packages.every((p) => p.manager === "apk")).toBe(true);
+    expect(a.packages.find((p) => p.name === "alpine-baselayout-data")).toMatchObject({ version: "3.7.0-r0", source: "alpine-baselayout" });
     const r = parseFacts(fixture("rockylinux-unprivileged.txt"), { containers: false });
     expect(r.system.os.id).toBe("rocky");
     expect(r.packages.some((p) => p.manager === "rpm" && p.name === "bash")).toBe(true);
+    expect(r.packages.find((p) => p.name === "openssl-libs")).toMatchObject({ epoch: 1, source: expect.stringMatching(/^openssl-3\..*\.src\.rpm$/) });
   });
 
   it("keeps container environment variables by name only and masks secrets in commands", () => {

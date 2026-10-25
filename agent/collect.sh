@@ -96,12 +96,13 @@ have nft && p nft list ruleset
 s iptables
 have iptables-save && p iptables-save
 
+# Each package with the source package it was built from: Vulnerabilities matches advisories by source (ADR 0031).
 s dpkg
-have dpkg-query && dpkg-query -W -f='${Package}\t${Version}\t${Architecture}\n' 2>/dev/null
+have dpkg-query && dpkg-query -W -f='${Package}\t${Version}\t${Architecture}\t${source:Package}\t${source:Version}\n' 2>/dev/null
 s rpm
-have rpm && rpm -qa --qf '%{NAME}\t%{VERSION}-%{RELEASE}\t%{ARCH}\n' 2>/dev/null
+have rpm && rpm -qa --qf '%{NAME}\t%{VERSION}-%{RELEASE}\t%{ARCH}\t%{EPOCH}\t%{SOURCERPM}\n' 2>/dev/null
 s apk
-have apk && apk info -v 2>/dev/null
+[ -r /lib/apk/db/installed ] && grep -E '^[PVAo]:' /lib/apk/db/installed
 
 # Containers only when switched on for this host: reading the Docker socket is equivalent to root (ADR 0031).
 if [ "${OPENASY_CONTAINERS:-0}" = 1 ]; then

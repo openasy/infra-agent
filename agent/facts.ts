@@ -96,7 +96,16 @@ export interface Facts {
   modules: string[];
   sysctl: Record<string, string>;
   firewall: { tool: "nftables" | "iptables"; rules: string } | null;
-  packages: Array<{ manager: "dpkg" | "rpm" | "apk"; name: string; version: string; arch: string | null }>;
+  /** source is the package it was built from (deb source, src.rpm, apk origin); epoch is rpm's. */
+  packages: Array<{
+    manager: "dpkg" | "rpm" | "apk";
+    name: string;
+    version: string;
+    arch: string | null;
+    source?: string | null;
+    sourceVersion?: string | null;
+    epoch?: number | null;
+  }>;
   containers: Container[] | null;
   /** What could not be read without the sudo rules (or the container switch): shown as "not readable". */
   unreadable: string[];
@@ -433,19 +442,43 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
       : null;
   if (!firewall) unreadable.push("firewall rules");
 
+  const none = (v: string | undefined) => (v && v !== "(none)" ? v : null);
+  // apk's installed database: a record per package, P name, V version, A arch, o origin.
+  const apk: Facts["packages"] = [];
+  for (const l of lines(get("apk"))) {
+    const [k, v] = [l.slice(0, 2), l.slice(2).trim()];
+    if (k === "P:") apk.push({ manager: "apk", name: v, version: "", arch: null, source: null });
+    const last = apk.at(-1);
+    if (!last) continue;
+    if (k === "V:") last.version = v;
+    else if (k === "A:") last.arch = v || null;
+    else if (k === "o:") last.source = v || null;
+  }
   const packages: Facts["packages"] = [
     ...lines(get("dpkg")).map((l) => {
-      const [name, version, arch] = l.split("\t");
-      return { manager: "dpkg" as const, name: name!, version: version ?? "", arch: arch ?? null };
+      const [name, version, arch, source, sourceVersion] = l.split("\t");
+      return {
+        manager: "dpkg" as const,
+        name: name!,
+        version: version ?? "",
+        arch: arch ?? null,
+        source: source || null,
+        sourceVersion: sourceVersion || null,
+      };
     }),
     ...lines(get("rpm")).map((l) => {
-      const [name, version, arch] = l.split("\t");
-      return { manager: "rpm" as const, name: name!, version: version ?? "", arch: arch && arch !== "(none)" ? arch : null };
+      const [name, version, arch, epoch, source] = l.split("\t");
+      const e = Number(none(epoch));
+      return {
+        manager: "rpm" as const,
+        name: name!,
+        version: version ?? "",
+        arch: none(arch),
+        epoch: none(epoch) !== null && Number.isInteger(e) ? e : null,
+        source: none(source),
+      };
     }),
-    ...lines(get("apk")).flatMap((l) => {
-      const m = /^(.+)-(\d[^-]*-r\d+)$/.exec(l.trim());
-      return m ? [{ manager: "apk" as const, name: m[1]!, version: m[2]!, arch: null }] : [];
-    }),
+    ...apk.filter((p) => p.version),
   ];
 
   let containers: Container[] | null = null;

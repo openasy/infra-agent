@@ -351,124 +351,148 @@ fakeowner
 @@dpkg
 
 @@rpm
-libgcc	11.4.1-2.1.el9	aarch64
-crypto-policies	20230731-1.git94f0e2c.el9_3.1	noarch
-rocky-gpg-keys	9.3-1.1.el9	noarch
-rocky-release	9.3-1.1.el9	noarch
-rocky-repos	9.3-1.1.el9	noarch
-setup	2.13.7-9.el9	noarch
-filesystem	3.16-2.el9	aarch64
-basesystem	11-13.el9	noarch
-libssh-config	0.10.4-11.el9	noarch
-libreport-filesystem	2.15.2-6.el9.rocky.0.2	noarch
-dnf-data	4.14.0-8.el9	noarch
-ncurses-base	6.2-10.20210508.el9	noarch
-tzdata	2023c-1.el9	noarch
-bash	5.1.8-6.el9_1	aarch64
-ncurses-libs	6.2-10.20210508.el9	aarch64
-glibc-minimal-langpack	2.34-83.el9.7	aarch64
-glibc-common	2.34-83.el9.7	aarch64
-glibc	2.34-83.el9.7	aarch64
-zlib	1.2.11-40.el9	aarch64
-bzip2-libs	1.0.8-8.el9	aarch64
-xz-libs	5.2.5-8.el9_0	aarch64
-libuuid	2.37.4-15.el9	aarch64
-libgpg-error	1.42-5.el9	aarch64
-libxcrypt	4.4.18-3.el9	aarch64
-libsmartcols	2.37.4-15.el9	aarch64
-libzstd	1.5.1-2.el9	aarch64
-libxml2	2.9.13-4.el9	aarch64
-sqlite-libs	3.34.1-6.el9_1	aarch64
-readline	8.1-4.el9	aarch64
-libunistring	0.9.10-15.el9	aarch64
-libidn2	2.3.0-7.el9	aarch64
-libattr	2.5.1-3.el9	aarch64
-libacl	2.3.1-3.el9	aarch64
-libffi	3.4.2-8.el9	aarch64
-p11-kit	0.24.1-2.el9	aarch64
-libcap	2.48-9.el9_2	aarch64
-libcom_err	1.46.5-3.el9	aarch64
-libassuan	2.5.5-3.el9	aarch64
-libgcrypt	1.10.0-10.el9_2	aarch64
-lz4-libs	1.9.3-5.el9	aarch64
-libcap-ng	0.8.2-7.el9	aarch64
-audit-libs	3.0.7-104.el9	aarch64
-popt	1.18-8.el9	aarch64
-libsigsegv	2.13-4.el9	aarch64
-gmp	6.2.0-13.el9	aarch64
-libsepol	3.5-1.el9	aarch64
-libtasn1	4.16.0-8.el9_1	aarch64
-pcre	8.44-3.el9.3	aarch64
-grep	3.6-5.el9	aarch64
-mpfr	4.1.0-7.el9	aarch64
-gawk	5.1.0-6.el9	aarch64
-libksba	1.5.1-6.el9_1	aarch64
-file-libs	5.39-14.el9	aarch64
-alternatives	1.24-1.el9	aarch64
-p11-kit-trust	0.24.1-2.el9	aarch64
-libverto	0.3.2-3.el9	aarch64
-libnghttp2	1.43.0-5.el9_3.1	aarch64
-keyutils-libs	1.6.3-1.el9	aarch64
-nettle	3.8-3.el9_0	aarch64
-gnutls	3.7.6-23.el9	aarch64
-json-c	0.14-11.el9	aarch64
-npth	1.6-8.el9	aarch64
-libyaml	0.2.5-7.el9	aarch64
-libdb	5.3.28-53.el9	aarch64
-lua-libs	5.4.4-4.el9	aarch64
-libstdc++	11.4.1-2.1.el9	aarch64
-libeconf	0.4.1-3.el9_2	aarch64
-gdbm-libs	1.19-4.el9	aarch64
-libbrotli	1.0.9-6.el9	aarch64
-pcre2-syntax	10.40-2.el9	noarch
-pcre2	10.40-2.el9	aarch64
-libselinux	3.5-1.el9	aarch64
-coreutils-single	8.32-34.el9	aarch64
-libblkid	2.37.4-15.el9	aarch64
-libmount	2.37.4-15.el9	aarch64
-glib2	2.68.4-11.el9	aarch64
-sed	4.8-9.el9	aarch64
-ca-certificates	2023.2.60_v7.0.306-90.1.el9_2	noarch
-openssl-libs	3.0.7-24.el9	aarch64
-krb5-libs	1.21.1-1.el9	aarch64
-systemd-libs	252-18.el9	aarch64
-util-linux-core	2.37.4-15.el9	aarch64
-libssh	0.10.4-11.el9	aarch64
-cyrus-sasl-lib	2.1.27-21.el9	aarch64
-libarchive	3.5.3-4.el9	aarch64
-openssl	3.0.7-24.el9	aarch64
-libevent	2.1.12-6.el9	aarch64
-openldap	2.6.3-1.el9	aarch64
-gnupg2	2.3.3-4.el9	aarch64
-gpgme	1.15.1-6.el9	aarch64
-gobject-introspection	1.68.0-11.el9	aarch64
-libpeas	1.30.0-4.el9	aarch64
-libfdisk	2.37.4-15.el9	aarch64
-gzip	1.12-1.el9	aarch64
-cracklib	2.9.6-27.el9	aarch64
-cracklib-dicts	2.9.6-27.el9	aarch64
-libpwquality	1.4.4-8.el9	aarch64
-pam	1.5.1-15.el9	aarch64
-libsemanage	3.5-2.el9	aarch64
-shadow-utils	4.9-8.el9	aarch64
-libutempter	1.2.1-6.el9	aarch64
-publicsuffix-list-dafsa	20210518-3.el9	noarch
-libpsl	0.21.1-5.el9	aarch64
-libcurl	7.76.1-26.el9_3.2.0.1	aarch64
-librepo	1.14.5-1.el9	aarch64
-curl	7.76.1-26.el9_3.2.0.1	aarch64
-rpm-libs	4.16.1.3-25.el9	aarch64
-rpm	4.16.1.3-25.el9	aarch64
-libsolv	0.7.24-2.el9	aarch64
-libmodulemd	2.13.0-2.el9	aarch64
-libdnf	0.69.0-6.el9_3	aarch64
-fonts-filesystem	2.0.5-7.el9.1	noarch
-dejavu-sans-fonts	2.37-18.el9	noarch
-langpacks-core-font-en	3.0-16.el9	noarch
-langpacks-core-en	3.0-16.el9	noarch
-langpacks-en	3.0-16.el9	noarch
-microdnf	3.9.1-3.el9	aarch64
-util-linux	2.37.4-15.el9	aarch64
+libgcc	11.4.1-2.1.el9	aarch64	(none)	gcc-11.4.1-2.1.el9.src.rpm
+crypto-policies	20230731-1.git94f0e2c.el9_3.1	noarch	(none)	crypto-policies-20230731-1.git94f0e2c.el9_3.1.src.rpm
+tzdata	2023c-1.el9	noarch	(none)	tzdata-2023c-1.el9.src.rpm
+rocky-gpg-keys	9.3-1.1.el9	noarch	(none)	rocky-release-9.3-1.1.el9.src.rpm
+rocky-release	9.3-1.1.el9	noarch	(none)	rocky-release-9.3-1.1.el9.src.rpm
+rocky-repos	9.3-1.1.el9	noarch	(none)	rocky-release-9.3-1.1.el9.src.rpm
+setup	2.13.7-9.el9	noarch	(none)	setup-2.13.7-9.el9.src.rpm
+filesystem	3.16-2.el9	aarch64	(none)	filesystem-3.16-2.el9.src.rpm
+basesystem	11-13.el9	noarch	(none)	basesystem-11-13.el9.src.rpm
+libreport-filesystem	2.15.2-6.el9.rocky.0.2	noarch	(none)	libreport-2.15.2-6.el9.rocky.0.2.src.rpm
+dnf-data	4.14.0-8.el9	noarch	(none)	dnf-4.14.0-8.el9.src.rpm
+ncurses-base	6.2-10.20210508.el9	noarch	(none)	ncurses-6.2-10.20210508.el9.src.rpm
+bash	5.1.8-6.el9_1	aarch64	(none)	bash-5.1.8-6.el9_1.src.rpm
+ncurses-libs	6.2-10.20210508.el9	aarch64	(none)	ncurses-6.2-10.20210508.el9.src.rpm
+glibc-minimal-langpack	2.34-83.el9.7	aarch64	(none)	glibc-2.34-83.el9.7.src.rpm
+glibc-common	2.34-83.el9.7	aarch64	(none)	glibc-2.34-83.el9.7.src.rpm
+glibc	2.34-83.el9.7	aarch64	(none)	glibc-2.34-83.el9.7.src.rpm
+zlib	1.2.11-40.el9	aarch64	(none)	zlib-1.2.11-40.el9.src.rpm
+bzip2-libs	1.0.8-8.el9	aarch64	(none)	bzip2-1.0.8-8.el9.src.rpm
+xz-libs	5.2.5-8.el9_0	aarch64	(none)	xz-5.2.5-8.el9_0.src.rpm
+libzstd	1.5.1-2.el9	aarch64	(none)	zstd-1.5.1-2.el9.src.rpm
+libxcrypt	4.4.18-3.el9	aarch64	(none)	libxcrypt-4.4.18-3.el9.src.rpm
+sqlite-libs	3.34.1-6.el9_1	aarch64	(none)	sqlite-3.34.1-6.el9_1.src.rpm
+popt	1.18-8.el9	aarch64	(none)	popt-1.18-8.el9.src.rpm
+libuuid	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+libcap	2.48-9.el9_2	aarch64	(none)	libcap-2.48-9.el9_2.src.rpm
+libgpg-error	1.42-5.el9	aarch64	(none)	libgpg-error-1.42-5.el9.src.rpm
+libstdc++	11.4.1-2.1.el9	aarch64	(none)	gcc-11.4.1-2.1.el9.src.rpm
+libxml2	2.9.13-4.el9	aarch64	(none)	libxml2-2.9.13-4.el9.src.rpm
+readline	8.1-4.el9	aarch64	(none)	readline-8.1-4.el9.src.rpm
+libsmartcols	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+elfutils-libelf	0.189-3.el9	aarch64	(none)	elfutils-0.189-3.el9.src.rpm
+libattr	2.5.1-3.el9	aarch64	(none)	attr-2.5.1-3.el9.src.rpm
+libacl	2.3.1-3.el9	aarch64	(none)	acl-2.3.1-3.el9.src.rpm
+libffi	3.4.2-8.el9	aarch64	(none)	libffi-3.4.2-8.el9.src.rpm
+p11-kit	0.24.1-2.el9	aarch64	(none)	p11-kit-0.24.1-2.el9.src.rpm
+libcom_err	1.46.5-3.el9	aarch64	(none)	e2fsprogs-1.46.5-3.el9.src.rpm
+lua-libs	5.4.4-4.el9	aarch64	(none)	lua-5.4.4-4.el9.src.rpm
+libassuan	2.5.5-3.el9	aarch64	(none)	libassuan-2.5.5-3.el9.src.rpm
+libgcrypt	1.10.0-10.el9_2	aarch64	(none)	libgcrypt-1.10.0-10.el9_2.src.rpm
+file-libs	5.39-14.el9	aarch64	(none)	file-5.39-14.el9.src.rpm
+alternatives	1.24-1.el9	aarch64	(none)	chkconfig-1.24-1.el9.src.rpm
+lz4-libs	1.9.3-5.el9	aarch64	(none)	lz4-1.9.3-5.el9.src.rpm
+libcap-ng	0.8.2-7.el9	aarch64	(none)	libcap-ng-0.8.2-7.el9.src.rpm
+audit-libs	3.0.7-104.el9	aarch64	(none)	audit-3.0.7-104.el9.src.rpm
+libsigsegv	2.13-4.el9	aarch64	(none)	libsigsegv-2.13-4.el9.src.rpm
+libunistring	0.9.10-15.el9	aarch64	(none)	libunistring-0.9.10-15.el9.src.rpm
+gmp	6.2.0-13.el9	aarch64	1	gmp-6.2.0-13.el9.src.rpm
+keyutils-libs	1.6.3-1.el9	aarch64	(none)	keyutils-1.6.3-1.el9.src.rpm
+libsepol	3.5-1.el9	aarch64	(none)	libsepol-3.5-1.el9.src.rpm
+libtasn1	4.16.0-8.el9_1	aarch64	(none)	libtasn1-4.16.0-8.el9_1.src.rpm
+p11-kit-trust	0.24.1-2.el9	aarch64	(none)	p11-kit-0.24.1-2.el9.src.rpm
+pcre	8.44-3.el9.3	aarch64	(none)	pcre-8.44-3.el9.3.src.rpm
+grep	3.6-5.el9	aarch64	(none)	grep-3.6-5.el9.src.rpm
+json-c	0.14-11.el9	aarch64	(none)	json-c-0.14-11.el9.src.rpm
+expat	2.5.0-1.el9	aarch64	(none)	expat-2.5.0-1.el9.src.rpm
+gdbm-libs	1.19-4.el9	aarch64	1	gdbm-1.19-4.el9.src.rpm
+libcomps	0.1.18-1.el9	aarch64	(none)	libcomps-0.1.18-1.el9.src.rpm
+mpfr	4.1.0-7.el9	aarch64	(none)	mpfr-4.1.0-7.el9.src.rpm
+gawk	5.1.0-6.el9	aarch64	(none)	gawk-5.1.0-6.el9.src.rpm
+libidn2	2.3.0-7.el9	aarch64	(none)	libidn2-2.3.0-7.el9.src.rpm
+libksba	1.5.1-6.el9_1	aarch64	(none)	libksba-1.5.1-6.el9_1.src.rpm
+libverto	0.3.2-3.el9	aarch64	(none)	libverto-0.3.2-3.el9.src.rpm
+libnghttp2	1.43.0-5.el9_3.1	aarch64	(none)	nghttp2-1.43.0-5.el9_3.1.src.rpm
+nettle	3.8-3.el9_0	aarch64	(none)	nettle-3.8-3.el9_0.src.rpm
+gnutls	3.7.6-23.el9	aarch64	(none)	gnutls-3.7.6-23.el9.src.rpm
+npth	1.6-8.el9	aarch64	(none)	npth-1.6-8.el9.src.rpm
+libyaml	0.2.5-7.el9	aarch64	(none)	libyaml-0.2.5-7.el9.src.rpm
+libdb	5.3.28-53.el9	aarch64	(none)	libdb-5.3.28-53.el9.src.rpm
+libgomp	11.4.1-2.1.el9	aarch64	(none)	gcc-11.4.1-2.1.el9.src.rpm
+libatomic	11.4.1-2.1.el9	aarch64	(none)	gcc-11.4.1-2.1.el9.src.rpm
+libeconf	0.4.1-3.el9_2	aarch64	(none)	libeconf-0.4.1-3.el9_2.src.rpm
+elfutils-default-yama-scope	0.189-3.el9	noarch	(none)	elfutils-0.189-3.el9.src.rpm
+elfutils-libs	0.189-3.el9	aarch64	(none)	elfutils-0.189-3.el9.src.rpm
+python3-setuptools-wheel	53.0.0-12.el9	noarch	(none)	python-setuptools-53.0.0-12.el9.src.rpm
+pcre2-syntax	10.40-2.el9	noarch	(none)	pcre2-10.40-2.el9.src.rpm
+pcre2	10.40-2.el9	aarch64	(none)	pcre2-10.40-2.el9.src.rpm
+libselinux	3.5-1.el9	aarch64	(none)	libselinux-3.5-1.el9.src.rpm
+coreutils-single	8.32-34.el9	aarch64	(none)	coreutils-8.32-34.el9.src.rpm
+libblkid	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+libmount	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+glib2	2.68.4-11.el9	aarch64	(none)	glib2-2.68.4-11.el9.src.rpm
+sed	4.8-9.el9	aarch64	(none)	sed-4.8-9.el9.src.rpm
+ca-certificates	2023.2.60_v7.0.306-90.1.el9_2	noarch	(none)	ca-certificates-2023.2.60_v7.0.306-90.1.el9_2.src.rpm
+openssl-libs	3.0.7-24.el9	aarch64	1	openssl-3.0.7-24.el9.src.rpm
+systemd-libs	252-18.el9	aarch64	(none)	systemd-252-18.el9.src.rpm
+krb5-libs	1.21.1-1.el9	aarch64	(none)	krb5-1.21.1-1.el9.src.rpm
+libcurl-minimal	7.76.1-26.el9_3.2.0.1	aarch64	(none)	curl-7.76.1-26.el9_3.2.0.1.src.rpm
+elfutils-debuginfod-client	0.189-3.el9	aarch64	(none)	elfutils-0.189-3.el9.src.rpm
+binutils-gold	2.35.2-42.el9	aarch64	(none)	binutils-2.35.2-42.el9.src.rpm
+binutils	2.35.2-42.el9	aarch64	(none)	binutils-2.35.2-42.el9.src.rpm
+curl-minimal	7.76.1-26.el9_3.2.0.1	aarch64	(none)	curl-7.76.1-26.el9_3.2.0.1.src.rpm
+cyrus-sasl-lib	2.1.27-21.el9	aarch64	(none)	cyrus-sasl-2.1.27-21.el9.src.rpm
+util-linux-core	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+libarchive	3.5.3-4.el9	aarch64	(none)	libarchive-3.5.3-4.el9.src.rpm
+rpm	4.16.1.3-25.el9	aarch64	(none)	rpm-4.16.1.3-25.el9.src.rpm
+rpm-libs	4.16.1.3-25.el9	aarch64	(none)	rpm-4.16.1.3-25.el9.src.rpm
+libsolv	0.7.24-2.el9	aarch64	(none)	libsolv-0.7.24-2.el9.src.rpm
+libmodulemd	2.13.0-2.el9	aarch64	(none)	libmodulemd-2.13.0-2.el9.src.rpm
+rpm-build-libs	4.16.1.3-25.el9	aarch64	(none)	rpm-4.16.1.3-25.el9.src.rpm
+openssl	3.0.7-24.el9	aarch64	1	openssl-3.0.7-24.el9.src.rpm
+libevent	2.1.12-6.el9	aarch64	(none)	libevent-2.1.12-6.el9.src.rpm
+openldap	2.6.3-1.el9	aarch64	(none)	openldap-2.6.3-1.el9.src.rpm
+gnupg2	2.3.3-4.el9	aarch64	(none)	gnupg2-2.3.3-4.el9.src.rpm
+gpgme	1.15.1-6.el9	aarch64	(none)	gpgme-1.15.1-6.el9.src.rpm
+librepo	1.14.5-1.el9	aarch64	(none)	librepo-1.14.5-1.el9.src.rpm
+libdnf	0.69.0-6.el9_3	aarch64	(none)	libdnf-0.69.0-6.el9_3.src.rpm
+python3-pip-wheel	21.2.3-7.el9	noarch	(none)	python-pip-21.2.3-7.el9.src.rpm
+python3	3.9.18-1.el9_3	aarch64	(none)	python3.9-3.9.18-1.el9_3.src.rpm
+python3-libs	3.9.18-1.el9_3	aarch64	(none)	python3.9-3.9.18-1.el9_3.src.rpm
+python3-libdnf	0.69.0-6.el9_3	aarch64	(none)	libdnf-0.69.0-6.el9_3.src.rpm
+python3-hawkey	0.69.0-6.el9_3	aarch64	(none)	libdnf-0.69.0-6.el9_3.src.rpm
+python3-libcomps	0.1.18-1.el9	aarch64	(none)	libcomps-0.1.18-1.el9.src.rpm
+python3-gpg	1.15.1-6.el9	aarch64	(none)	gpgme-1.15.1-6.el9.src.rpm
+libfdisk	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+gzip	1.12-1.el9	aarch64	(none)	gzip-1.12-1.el9.src.rpm
+cracklib	2.9.6-27.el9	aarch64	(none)	cracklib-2.9.6-27.el9.src.rpm
+cracklib-dicts	2.9.6-27.el9	aarch64	(none)	cracklib-2.9.6-27.el9.src.rpm
+libpwquality	1.4.4-8.el9	aarch64	(none)	libpwquality-1.4.4-8.el9.src.rpm
+pam	1.5.1-15.el9	aarch64	(none)	pam-1.5.1-15.el9.src.rpm
+libuser	0.63-13.el9	aarch64	(none)	libuser-0.63-13.el9.src.rpm
+passwd	0.80-12.el9	aarch64	(none)	passwd-0.80-12.el9.src.rpm
+libsemanage	3.5-2.el9	aarch64	(none)	libsemanage-3.5-2.el9.src.rpm
+shadow-utils	4.9-8.el9	aarch64	2	shadow-utils-4.9-8.el9.src.rpm
+libutempter	1.2.1-6.el9	aarch64	(none)	libutempter-1.2.1-6.el9.src.rpm
+util-linux	2.37.4-15.el9	aarch64	(none)	util-linux-2.37.4-15.el9.src.rpm
+tpm2-tss	3.2.2-2.el9	aarch64	(none)	tpm2-tss-3.2.2-2.el9.src.rpm
+ima-evm-utils	1.4-4.el9	aarch64	(none)	ima-evm-utils-1.4-4.el9.src.rpm
+rpm-sign-libs	4.16.1.3-25.el9	aarch64	(none)	rpm-4.16.1.3-25.el9.src.rpm
+python3-rpm	4.16.1.3-25.el9	aarch64	(none)	rpm-4.16.1.3-25.el9.src.rpm
+python3-dnf	4.14.0-8.el9	noarch	(none)	dnf-4.14.0-8.el9.src.rpm
+dnf	4.14.0-8.el9	noarch	(none)	dnf-4.14.0-8.el9.src.rpm
+yum	4.14.0-8.el9	noarch	(none)	dnf-4.14.0-8.el9.src.rpm
+usermode	1.114-4.el9	aarch64	(none)	usermode-1.114-4.el9.src.rpm
+crypto-policies-scripts	20230731-1.git94f0e2c.el9_3.1	noarch	(none)	crypto-policies-20230731-1.git94f0e2c.el9_3.1.src.rpm
+libusbx	1.0.26-1.el9	aarch64	(none)	libusbx-1.0.26-1.el9.src.rpm
+findutils	4.8.0-6.el9	aarch64	1	findutils-4.8.0-6.el9.src.rpm
+tar	1.34-6.el9_1	aarch64	2	tar-1.34-6.el9_1.src.rpm
+vim-minimal	8.2.2637-20.el9_1	aarch64	2	vim-8.2.2637-20.el9_1.src.rpm
+hostname	3.23-6.el9	aarch64	(none)	hostname-3.23-6.el9.src.rpm
+less	590-2.el9_2	aarch64	(none)	less-590-2.el9_2.src.rpm
+rootfiles	8.1-31.el9	noarch	(none)	rootfiles-8.1-31.el9.src.rpm
 
 @@apk
 
