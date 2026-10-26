@@ -1,0 +1,533 @@
+{
+  "_comment": "Written after the shape iDRAC 9 answers with (firmware 6.x, Redfish 1.11): not captured from hardware. A missing path answers 404.",
+  "/redfish/v1": {
+    "@odata.id": "/redfish/v1",
+    "@odata.type": "#ServiceRoot.v1_9_0.ServiceRoot",
+    "Id": "RootService",
+    "Name": "Root Service",
+    "RedfishVersion": "1.11.0",
+    "Vendor": "Dell",
+    "Product": "Integrated Dell Remote Access Controller",
+    "UUID": "324c4c45-4458-3510-8032-b7c04f523333",
+    "Systems": {
+      "@odata.id": "/redfish/v1/Systems"
+    },
+    "Chassis": {
+      "@odata.id": "/redfish/v1/Chassis"
+    },
+    "Managers": {
+      "@odata.id": "/redfish/v1/Managers"
+    },
+    "UpdateService": {
+      "@odata.id": "/redfish/v1/UpdateService"
+    },
+    "AccountService": {
+      "@odata.id": "/redfish/v1/AccountService"
+    },
+    "SessionService": {
+      "@odata.id": "/redfish/v1/SessionService"
+    }
+  },
+  "/redfish/v1/Systems": {
+    "@odata.id": "/redfish/v1/Systems",
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1"
+      }
+    ],
+    "Members@odata.count": 1
+  },
+  "/redfish/v1/Systems/System.Embedded.1": {
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1",
+    "Id": "System.Embedded.1",
+    "Manufacturer": "Dell Inc.",
+    "Model": "PowerEdge R650",
+    "SerialNumber": "CNIVC0022B0123",
+    "SKU": "7XQ2R33",
+    "BiosVersion": "1.10.2",
+    "PowerState": "On",
+    "HostName": "db-1",
+    "UUID": "4c4c4544-0058-5110-8032-b7c04f523333",
+    "Status": {
+      "Health": "Warning",
+      "HealthRollup": "Critical",
+      "State": "Enabled"
+    },
+    "ProcessorSummary": {
+      "Count": 2,
+      "Model": "Intel(R) Xeon(R) Gold 6330 CPU @ 2.00GHz",
+      "Status": {
+        "Health": "OK"
+      }
+    },
+    "MemorySummary": {
+      "TotalSystemMemoryGiB": 256,
+      "Status": {
+        "Health": "OK"
+      }
+    },
+    "Storage": {
+      "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage"
+    },
+    "LogServices": {
+      "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices"
+    },
+    "Actions": {
+      "#ComputerSystem.Reset": {
+        "target": "/redfish/v1/Systems/System.Embedded.1/Actions/ComputerSystem.Reset"
+      }
+    }
+  },
+  "/redfish/v1/Systems/System.Embedded.1/Storage": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1"
+      }
+    ]
+  },
+  "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1": {
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1",
+    "Id": "RAID.Integrated.1-1",
+    "Name": "PERC H755 Front",
+    "StorageControllers": [
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1#/StorageControllers/0",
+        "MemberId": "RAID.Integrated.1-1",
+        "Name": "PERC H755 Front",
+        "Model": "PERC H755 Front",
+        "FirmwareVersion": "52.16.1-4405",
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      }
+    ],
+    "Drives": [
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1"
+      },
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1"
+      },
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.2:Enclosure.Internal.0-1:RAID.Integrated.1-1"
+      }
+    ],
+    "Drives@odata.count": 3
+  },
+  "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1": {
+    "Id": "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+    "Name": "Solid State Disk 0:1:0",
+    "Model": "MZ7L3960HCJR0D3",
+    "SerialNumber": "S6KMNA0T401234",
+    "CapacityBytes": 960197124096,
+    "MediaType": "SSD",
+    "Protocol": "SATA",
+    "PredictedMediaLifeLeftPercent": 99,
+    "Status": {
+      "Health": "OK",
+      "State": "Enabled"
+    }
+  },
+  "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1": {
+    "Id": "Disk.Bay.1:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+    "Name": "Solid State Disk 0:1:1",
+    "Model": "MZ7L3960HCJR0D3",
+    "SerialNumber": "S6KMNA0T405678",
+    "CapacityBytes": 960197124096,
+    "MediaType": "SSD",
+    "Protocol": "SATA",
+    "PredictedMediaLifeLeftPercent": 4,
+    "Status": {
+      "Health": "Warning",
+      "State": "Enabled"
+    }
+  },
+  "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Integrated.1-1/Drives/Disk.Bay.2:Enclosure.Internal.0-1:RAID.Integrated.1-1": {
+    "Id": "Disk.Bay.2:Enclosure.Internal.0-1:RAID.Integrated.1-1",
+    "Name": "Disk 2",
+    "Status": {
+      "Health": null,
+      "State": "Absent"
+    }
+  },
+  "/redfish/v1/Systems/System.Embedded.1/LogServices": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel"
+      },
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/FaultList"
+      }
+    ]
+  },
+  "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel": {
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel",
+    "Id": "Sel",
+    "LogEntryType": "SEL",
+    "Entries": {
+      "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel/Entries"
+    }
+  },
+  "/redfish/v1/Systems/System.Embedded.1/LogServices/FaultList": {
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/FaultList",
+    "Id": "FaultList",
+    "LogEntryType": "Multiple",
+    "Entries": {
+      "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/FaultList/Entries"
+    }
+  },
+  "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel/Entries": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel/Entries/1",
+        "Id": "1",
+        "Created": "2026-09-01T08:00:00-05:00",
+        "Severity": "OK",
+        "Message": "Log cleared.",
+        "EntryType": "SEL"
+      },
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel/Entries/3",
+        "Id": "3",
+        "Created": "2026-10-20T11:02:13-05:00",
+        "Severity": "Critical",
+        "Message": "The power input for power supply 2 is lost.",
+        "EntryType": "SEL"
+      },
+      {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/LogServices/Sel/Entries/2",
+        "Id": "2",
+        "Created": "2026-10-12T03:14:00-05:00",
+        "Severity": "Warning",
+        "Message": "Disk 1 in Backplane 1 of Integrated RAID Controller 1 has reached its predicted end of life.",
+        "EntryType": "SEL"
+      }
+    ]
+  },
+  "/redfish/v1/Chassis": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Chassis/System.Embedded.1"
+      },
+      {
+        "@odata.id": "/redfish/v1/Chassis/Enclosure.Internal.0-1:RAID.Integrated.1-1"
+      }
+    ]
+  },
+  "/redfish/v1/Chassis/System.Embedded.1": {
+    "@odata.id": "/redfish/v1/Chassis/System.Embedded.1",
+    "Id": "System.Embedded.1",
+    "Name": "Computer System Chassis",
+    "Model": "PowerEdge R650",
+    "SerialNumber": "CNIVC0022B0123",
+    "Status": {
+      "Health": "Critical",
+      "HealthRollup": "Critical",
+      "State": "Enabled"
+    },
+    "Power": {
+      "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Power"
+    },
+    "Thermal": {
+      "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Thermal"
+    }
+  },
+  "/redfish/v1/Chassis/System.Embedded.1/Power": {
+    "PowerControl": [
+      {
+        "MemberId": "PowerControl",
+        "PowerConsumedWatts": 312,
+        "PowerCapacityWatts": 2800
+      }
+    ],
+    "PowerSupplies": [
+      {
+        "MemberId": "PSU.Slot.1",
+        "Name": "PS1 Status",
+        "Model": "PWR SPLY,1400W,RDNT,LTON",
+        "SerialNumber": "CNLOD0021P0001",
+        "FirmwareVersion": "00.1B.53",
+        "PowerCapacityWatts": 1400,
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      },
+      {
+        "MemberId": "PSU.Slot.2",
+        "Name": "PS2 Status",
+        "Model": "PWR SPLY,1400W,RDNT,LTON",
+        "SerialNumber": "CNLOD0021P0002",
+        "FirmwareVersion": "00.1B.53",
+        "PowerCapacityWatts": 1400,
+        "Status": {
+          "Health": "Critical",
+          "State": "Enabled"
+        }
+      }
+    ]
+  },
+  "/redfish/v1/Chassis/System.Embedded.1/Thermal": {
+    "Fans": [
+      {
+        "MemberId": "0x17||Fan.Embedded.1A",
+        "Name": "System Board Fan1A",
+        "Reading": 7920,
+        "ReadingUnits": "RPM",
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      },
+      {
+        "MemberId": "0x17||Fan.Embedded.1B",
+        "Name": "System Board Fan1B",
+        "Reading": 7680,
+        "ReadingUnits": "RPM",
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      }
+    ],
+    "Temperatures": [
+      {
+        "MemberId": "iDRAC.Embedded.1#CPU1Temp",
+        "Name": "CPU1 Temp",
+        "ReadingCelsius": 52,
+        "UpperThresholdCritical": 98,
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      },
+      {
+        "MemberId": "iDRAC.Embedded.1#SystemBoardInletTemp",
+        "Name": "System Board Inlet Temp",
+        "ReadingCelsius": 23,
+        "UpperThresholdCritical": 47,
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      }
+    ]
+  },
+  "/redfish/v1/Chassis/Enclosure.Internal.0-1:RAID.Integrated.1-1": {
+    "Id": "Enclosure.Internal.0-1:RAID.Integrated.1-1",
+    "Name": "PERC H755 Front Backplane",
+    "Model": "BP15G+ 0:1",
+    "Status": {
+      "Health": "OK",
+      "State": "Enabled"
+    }
+  },
+  "/redfish/v1/Managers": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+      }
+    ]
+  },
+  "/redfish/v1/Managers/iDRAC.Embedded.1": {
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1",
+    "Id": "iDRAC.Embedded.1",
+    "Model": "15G Monolithic",
+    "ManagerType": "BMC",
+    "FirmwareVersion": "6.10.30.00",
+    "Status": {
+      "Health": "OK",
+      "State": "Enabled"
+    },
+    "NetworkProtocol": {
+      "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/NetworkProtocol"
+    },
+    "LogServices": {
+      "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/LogServices"
+    },
+    "Actions": {
+      "#Manager.Reset": {
+        "target": "/redfish/v1/Managers/iDRAC.Embedded.1/Actions/Manager.Reset"
+      }
+    }
+  },
+  "/redfish/v1/Managers/iDRAC.Embedded.1/NetworkProtocol": {
+    "Id": "NetworkProtocol",
+    "Name": "Manager Network Protocol",
+    "HostName": "idrac-db-1",
+    "FQDN": "idrac-db-1.example.com",
+    "HTTP": {
+      "Port": 80,
+      "ProtocolEnabled": true
+    },
+    "HTTPS": {
+      "Port": 443,
+      "ProtocolEnabled": true
+    },
+    "IPMI": {
+      "Port": 623,
+      "ProtocolEnabled": true
+    },
+    "SSH": {
+      "Port": 22,
+      "ProtocolEnabled": true
+    },
+    "SNMP": {
+      "Port": 161,
+      "ProtocolEnabled": false
+    },
+    "VirtualMedia": {
+      "Port": 443,
+      "ProtocolEnabled": true
+    },
+    "KVMIP": {
+      "Port": 5900,
+      "ProtocolEnabled": true
+    },
+    "NTP": {
+      "ProtocolEnabled": true,
+      "NTPServers": ["pool.ntp.org"]
+    },
+    "SSDP": {
+      "Port": 1900,
+      "ProtocolEnabled": false,
+      "NotifyTTL": 60
+    }
+  },
+  "/redfish/v1/Managers/iDRAC.Embedded.1/LogServices": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Lclog"
+      }
+    ]
+  },
+  "/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Lclog": {
+    "Id": "Lclog",
+    "LogEntryType": "Multiple",
+    "Entries": {
+      "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/LogServices/Lclog/Entries"
+    }
+  },
+  "/redfish/v1/UpdateService": {
+    "Id": "UpdateService",
+    "FirmwareInventory": {
+      "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory"
+    },
+    "Actions": {
+      "#UpdateService.SimpleUpdate": {
+        "target": "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate"
+      }
+    }
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/Installed-159-1.10.2"
+      },
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/Installed-25227-6.10.30.00"
+      },
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/Previous-25227-6.00.30.00"
+      },
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/Installed-101548-52.16.1-4405"
+      },
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/Installed-108255-22.31.6"
+      }
+    ]
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/Installed-159-1.10.2": {
+    "Id": "Installed-159-1.10.2",
+    "Name": "BIOS",
+    "Version": "1.10.2",
+    "Updateable": true,
+    "Status": {
+      "Health": "OK",
+      "State": "Enabled"
+    }
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/Installed-25227-6.10.30.00": {
+    "Id": "Installed-25227-6.10.30.00",
+    "Name": "Integrated Dell Remote Access Controller",
+    "Version": "6.10.30.00",
+    "Updateable": true
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/Previous-25227-6.00.30.00": {
+    "Id": "Previous-25227-6.00.30.00",
+    "Name": "Integrated Dell Remote Access Controller",
+    "Version": "6.00.30.00",
+    "Updateable": true
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/Installed-101548-52.16.1-4405": {
+    "Id": "Installed-101548-52.16.1-4405",
+    "Name": "PERC H755 Front",
+    "Version": "52.16.1-4405",
+    "Updateable": true
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/Installed-108255-22.31.6": {
+    "Id": "Installed-108255-22.31.6",
+    "Name": "Broadcom Gigabit Ethernet BCM5720 - 00:62:0B:AA:BB:01",
+    "Version": "22.31.6",
+    "Updateable": true
+  },
+  "/redfish/v1/AccountService": {
+    "Id": "AccountService",
+    "Accounts": {
+      "@odata.id": "/redfish/v1/AccountService/Accounts"
+    },
+    "Roles": {
+      "@odata.id": "/redfish/v1/AccountService/Roles"
+    }
+  },
+  "/redfish/v1/AccountService/Accounts": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/AccountService/Accounts/1"
+      },
+      {
+        "@odata.id": "/redfish/v1/AccountService/Accounts/2"
+      },
+      {
+        "@odata.id": "/redfish/v1/AccountService/Accounts/3"
+      },
+      {
+        "@odata.id": "/redfish/v1/AccountService/Accounts/4"
+      }
+    ]
+  },
+  "/redfish/v1/AccountService/Accounts/1": {
+    "Id": "1",
+    "UserName": "",
+    "RoleId": "None",
+    "Enabled": false,
+    "Locked": false,
+    "Password": null
+  },
+  "/redfish/v1/AccountService/Accounts/2": {
+    "Id": "2",
+    "UserName": "root",
+    "RoleId": "Administrator",
+    "Enabled": true,
+    "Locked": false,
+    "Password": null
+  },
+  "/redfish/v1/AccountService/Accounts/3": {
+    "Id": "3",
+    "UserName": "openasy",
+    "RoleId": "ReadOnly",
+    "Enabled": true,
+    "Locked": false,
+    "Password": null
+  },
+  "/redfish/v1/AccountService/Accounts/4": {
+    "Id": "4",
+    "UserName": "",
+    "RoleId": "None",
+    "Enabled": false,
+    "Locked": false,
+    "Password": null
+  }
+}

@@ -37,6 +37,8 @@ for f in sys_vendor product_name product_version bios_vendor bios_version bios_d
 done
 s dmi-serial
 p cat /sys/class/dmi/id/product_serial
+s dmi-uuid
+p cat /sys/class/dmi/id/product_uuid
 
 s lsblk
 have lsblk && lsblk -J -b -o NAME,TYPE,SIZE,MODEL,ROTA,FSTYPE,MOUNTPOINT 2>/dev/null

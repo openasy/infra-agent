@@ -1,0 +1,273 @@
+{
+  "_comment": "Written after the shape iLO 5 answers with (firmware 2.x, Redfish 1.6): paths end in a slash, collections only link their members and page with nextLink, and this account may not read the others. Not captured from hardware. null answers 403.",
+  "/redfish/v1": {
+    "@odata.id": "/redfish/v1/",
+    "RedfishVersion": "1.6.0",
+    "Vendor": "HPE",
+    "Product": "ProLiant DL360 Gen10",
+    "UUID": "2f6e8a54-1a1b-5b0a-9c3e-7c1a0b2c3d4e",
+    "Systems": {
+      "@odata.id": "/redfish/v1/Systems/"
+    },
+    "Chassis": {
+      "@odata.id": "/redfish/v1/Chassis/"
+    },
+    "Managers": {
+      "@odata.id": "/redfish/v1/Managers/"
+    },
+    "UpdateService": {
+      "@odata.id": "/redfish/v1/UpdateService/"
+    },
+    "AccountService": {
+      "@odata.id": "/redfish/v1/AccountService/"
+    }
+  },
+  "/redfish/v1/Systems/": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/1/"
+      }
+    ]
+  },
+  "/redfish/v1/Systems/1/": {
+    "Id": "1",
+    "Manufacturer": "HPE",
+    "Model": "ProLiant DL360 Gen10",
+    "SerialNumber": "CZJ0420ABC",
+    "SKU": "867959-B21",
+    "BiosVersion": "U32 v2.68 (07/14/2022)",
+    "PowerState": "On",
+    "HostName": "spare",
+    "UUID": "36353738-3935-435a-4a30-343230414243",
+    "Status": {
+      "Health": "OK",
+      "HealthRollup": "OK",
+      "State": "Enabled"
+    },
+    "ProcessorSummary": {
+      "Count": 1,
+      "Model": "Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz"
+    },
+    "MemorySummary": {
+      "TotalSystemMemoryGiB": 64
+    },
+    "LogServices": {
+      "@odata.id": "/redfish/v1/Systems/1/LogServices/"
+    }
+  },
+  "/redfish/v1/Systems/1/LogServices/": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/"
+      }
+    ]
+  },
+  "/redfish/v1/Systems/1/LogServices/IML/": {
+    "Id": "IML",
+    "Entries": {
+      "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/"
+    }
+  },
+  "/redfish/v1/Systems/1/LogServices/IML/Entries/": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/1/"
+      },
+      {
+        "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/2/"
+      }
+    ]
+  },
+  "/redfish/v1/Systems/1/LogServices/IML/Entries/1/": {
+    "Id": "1",
+    "Created": "2026-08-02T10:00:00Z",
+    "Severity": "OK",
+    "Message": "Firmware flashed (iLO 5 2.78)"
+  },
+  "/redfish/v1/Systems/1/LogServices/IML/Entries/2/": {
+    "Id": "2",
+    "Created": "2026-10-25T22:40:11Z",
+    "Severity": "Warning",
+    "Message": "Network Adapter Link Down (Slot 0, Port 2)"
+  },
+  "/redfish/v1/Chassis/": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Chassis/1/"
+      }
+    ]
+  },
+  "/redfish/v1/Chassis/1/": {
+    "Id": "1",
+    "Name": "Computer System Chassis",
+    "Model": "ProLiant DL360 Gen10",
+    "SerialNumber": "CZJ0420ABC",
+    "Status": {
+      "Health": "OK",
+      "State": "Enabled"
+    },
+    "Power": {
+      "@odata.id": "/redfish/v1/Chassis/1/Power/"
+    },
+    "Thermal": {
+      "@odata.id": "/redfish/v1/Chassis/1/Thermal/"
+    }
+  },
+  "/redfish/v1/Chassis/1/Power/": {
+    "PowerControl": [
+      {
+        "PowerConsumedWatts": 141
+      }
+    ],
+    "PowerSupplies": [
+      {
+        "MemberId": "0",
+        "Name": "HpeServerPowerSupply",
+        "Model": "865408-B21",
+        "SerialNumber": "5WBXK0B8JAB123",
+        "FirmwareVersion": "1.00",
+        "PowerCapacityWatts": 500,
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      },
+      {
+        "MemberId": "1",
+        "Status": {
+          "State": "Absent"
+        }
+      }
+    ]
+  },
+  "/redfish/v1/Chassis/1/Thermal/": {
+    "Fans": [
+      {
+        "MemberId": "0",
+        "Name": "Fan 1",
+        "Reading": 23,
+        "ReadingUnits": "Percent",
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      }
+    ],
+    "Temperatures": [
+      {
+        "MemberId": "0",
+        "Name": "01-Inlet Ambient",
+        "ReadingCelsius": 21,
+        "UpperThresholdCritical": 42,
+        "Status": {
+          "Health": "OK",
+          "State": "Enabled"
+        }
+      },
+      {
+        "MemberId": "9",
+        "Name": "10-P2 DIMM 1-6",
+        "Status": {
+          "State": "Absent"
+        }
+      }
+    ]
+  },
+  "/redfish/v1/Managers/": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/Managers/1/"
+      }
+    ]
+  },
+  "/redfish/v1/Managers/1/": {
+    "Id": "1",
+    "Model": "iLO 5",
+    "ManagerType": "BMC",
+    "FirmwareVersion": "iLO 5 v2.78",
+    "Status": {
+      "Health": "OK",
+      "State": "Enabled"
+    },
+    "NetworkProtocol": {
+      "@odata.id": "/redfish/v1/Managers/1/NetworkProtocol/"
+    }
+  },
+  "/redfish/v1/Managers/1/NetworkProtocol/": {
+    "HTTP": {
+      "Port": 80,
+      "ProtocolEnabled": true
+    },
+    "HTTPS": {
+      "Port": 443,
+      "ProtocolEnabled": true
+    },
+    "IPMI": {
+      "Port": 623,
+      "ProtocolEnabled": false
+    },
+    "SSH": {
+      "Port": 22,
+      "ProtocolEnabled": true
+    },
+    "SNMP": {
+      "Port": 161,
+      "ProtocolEnabled": true
+    },
+    "VirtualMedia": {
+      "Port": 17988,
+      "ProtocolEnabled": true
+    },
+    "KVMIP": {
+      "Port": 17990,
+      "ProtocolEnabled": true
+    }
+  },
+  "/redfish/v1/UpdateService/": {
+    "FirmwareInventory": {
+      "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/"
+    }
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/1/"
+      },
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/2/"
+      }
+    ],
+    "Members@odata.nextLink": "/redfish/v1/UpdateService/FirmwareInventory/?$skip=2"
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/?$skip=2": {
+    "Members": [
+      {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/3/"
+      }
+    ]
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/1/": {
+    "Id": "1",
+    "Name": "iLO 5",
+    "Version": "2.78 Apr 28 2023",
+    "Updateable": true
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/2/": {
+    "Id": "2",
+    "Name": "System ROM",
+    "Version": "U32 v2.68 (07/14/2022)",
+    "Updateable": true
+  },
+  "/redfish/v1/UpdateService/FirmwareInventory/3/": {
+    "Id": "3",
+    "Name": "HPE Ethernet 1Gb 4-port 331i Adapter - NIC",
+    "Version": "20.20.41",
+    "Updateable": false
+  },
+  "/redfish/v1/AccountService/": {
+    "Accounts": {
+      "@odata.id": "/redfish/v1/AccountService/Accounts/"
+    }
+  },
+  "/redfish/v1/AccountService/Accounts/": null
+}

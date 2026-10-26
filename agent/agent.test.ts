@@ -57,7 +57,7 @@ describe("jobs from Infrastructure", () => {
     };
     const r = await runJob(job({ target: { ...job().target, containers: true }, script: "rm -rf /" }), keys, transport);
     expect(script.startsWith("OPENASY_CONTAINERS=1\n# Read-only collection")).toBe(true);
-    expect(r.ok && "facts" in r && r.facts.containers?.map((c) => c.name)).toContain("fx-api");
+    expect(r.ok && "hostId" in r && "facts" in r && r.facts.containers?.map((c) => c.name)).toContain("fx-api");
     expect(JSON.stringify(r)).not.toMatch(/hunter2-fixture|fixture-token-123/);
   });
 

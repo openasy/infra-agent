@@ -4,8 +4,8 @@
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue)](./LICENSE)
 
 The agent of [OpenAsy Infrastructure](https://github.com/openasy/infra). It is installed **once**, next to
-Infrastructure or in the network of the hosts, and reads those hosts over SSH at intervals. **Nothing is installed
-on the hosts** (ADR 0018, 0031).
+Infrastructure or in the network of the hosts, and reads those hosts over SSH, and their BMCs over Redfish, at
+intervals. **Nothing is installed on the hosts** (ADR 0018, 0031, 0055).
 
 - **It keeps the keys.** On first start it makes its SSH certificate authority and a fixed key, and keeps them in
   `/data/agent.state`, sealed with its own key-encryption key. Infrastructure never sees a private key.
@@ -42,8 +42,21 @@ Next to Infrastructure, its compose file has the agent already. The agent must b
 | `INFRA_AGENT_STATE` | `/data/agent.state` | The sealed state, on its volume |
 | `POLL_SECONDS` | `10` | How often it asks for work |
 | `CONCURRENCY` | `8` | Hosts read at the same time |
-| `OPENASY_KEYS_DIR` | `/keys` | Private keys a host in the hosts file names with `keyFile`; mount it read-only |
+| `OPENASY_KEYS_DIR` | `/keys` | Private keys a host in the hosts file names with `keyFile`, and the password files its BMCs name with `passwordFile`; mount it read-only |
 | `PORT` | `9100` | `/healthz`, `/readyz` and `/metrics` |
+
+## BMCs over Redfish
+
+The agent also reads the BMCs (iDRAC, iLO, XClarity and others) listed under `bmcs:` in the hosts file (ADR 0055):
+
+- **GET only.** Its Redfish client (`agent/redfish.ts`) has no other method, follows the BMC's own links only under
+  `/redfish/v1` and never to an action, and stops at 600 requests or 4 minutes. A compromised Infrastructure can make
+  it read a BMC, never power a server off, change a setting or start an update.
+- **The password stays here.** A BMC names a file in the key folder; the agent reads it for each collection, and
+  only the parsed facts leave (`agent/bmc.ts`). Use an account with the `ReadOnly` role.
+- **The certificate is pinned.** The agent writes a request only on a connection whose certificate has a fingerprint
+  Infrastructure says is accepted, so the password goes to that BMC and nowhere else. A new certificate is reported,
+  and nothing is sent until an admin accepts it.
 
 ## What it reads, and what a host needs
 
@@ -54,7 +67,7 @@ for a host with this agent's CA, and the sudoers file that matches `agent/collec
 
 ```bash
 npm install
-npm test   # parsing and masking against outputs captured on Debian, Alpine and Rocky Linux, jobs, the loop
+npm test   # parsing and masking against outputs captured on Debian, Alpine and Rocky Linux, Redfish trees shaped after iDRAC 9 and iLO 5, jobs, the loop
 ```
 
 The end-to-end test lives in [infra](https://github.com/openasy/infra/tree/main/e2e) and runs both images against real

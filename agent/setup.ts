@@ -4,6 +4,7 @@
 /** The commands collect.sh runs through `p`, with exactly the same arguments. */
 export const PRIVILEGED: Array<{ cmd: string; args: string; reads: string }> = [
   { cmd: "cat", args: "/sys/class/dmi/id/product_serial", reads: "the hardware serial number" },
+  { cmd: "cat", args: "/sys/class/dmi/id/product_uuid", reads: "the hardware UUID, which the server's BMC reports too" },
   { cmd: "ss", args: "-H -tulnp", reads: "which process listens on each port" },
   { cmd: "netstat", args: "-tulnp", reads: "which process listens on each port, without ss" },
   { cmd: "ls", args: "-1 /var/spool/cron/crontabs", reads: "which users have a crontab" },

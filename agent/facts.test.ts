@@ -72,6 +72,13 @@ describe("facts", () => {
     expect(f.unreadable).not.toContain("user crontabs");
   });
 
+  it("reads the hardware UUID with the sudo rules, to match the host with its BMC", () => {
+    // The fixtures come from containers, which have no DMI; a server's section looks like this.
+    const raw = fixture("debian-sudo.txt").replace("@@dmi-serial\n", "@@dmi-serial\n7XQ2R33\n@ok\n@@dmi-uuid\n4C4C4544-0058-5110-8032-B7C04F523333\n@ok\n");
+    expect(parseFacts(raw, { containers: false }).system).toMatchObject({ serial: "7XQ2R33", uuid: "4c4c4544-0058-5110-8032-b7c04f523333" });
+    expect(parseFacts(fixture("debian-unprivileged.txt"), { containers: false }).unreadable).toContain("hardware UUID");
+  });
+
   it("says what it could not read without the sudo rules", () => {
     const f = parseFacts(fixture("debian-unprivileged.txt"), { containers: false });
     expect(f.authorizedKeys).toBeNull();

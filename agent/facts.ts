@@ -74,6 +74,8 @@ export interface Facts {
     virtualization: string | null;
     hardware: Record<string, string>;
     serial: string | null;
+    /** The SMBIOS UUID, which the server's BMC reports too (ADR 0055); it needs the sudo rules. */
+    uuid: string | null;
   };
   cpu: { model: string | null; threads: number; cores: number | null };
   memory: { totalKb: number; availableKb: number; swapTotalKb: number; swapFreeKb: number };
@@ -506,6 +508,7 @@ export function parseFacts(output: string, opts: { containers: boolean }): Facts
       virtualization: get("virt") && get("virt") !== "none" ? get("virt")! : null,
       hardware: kv(get("dmi") ?? ""),
       serial: priv("dmi-serial", "hardware serial number", (t) => t.trim()),
+      uuid: priv("dmi-uuid", "hardware UUID", (t) => t.trim().toLowerCase() || null),
     },
     cpu: {
       model:
