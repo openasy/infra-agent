@@ -28,7 +28,7 @@ docker run -d --name infra-agent --restart unless-stopped --read-only --tmpfs /t
   --cap-drop ALL --security-opt no-new-privileges \
   -v infra-agent-data:/data -v "$PWD/openasy-agent-kek:/run/secrets/openasy-agent-kek:ro" \
   -e INFRA_URL=https://infra.example.com -e INFRA_ENROLL_TOKEN=oie_... \
-  ghcr.io/openasy/infra-agent:0.6.0
+  ghcr.io/openasy/infra-agent:0.7.0
 ```
 
 Next to Infrastructure, its compose file has the agent already. The agent must be the same version as Infrastructure
