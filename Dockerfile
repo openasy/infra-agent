@@ -2,7 +2,7 @@
 
 # OpenSSH's own client does the SSH (ADR 0031): Debian slim with openssh-client rather than distroless. The agent has
 # no runtime dependencies: Node runs the TypeScript sources directly.
-FROM node:26.12.0-trixie-slim
+FROM node:26.12.1-trixie-slim
 RUN apt-get update && apt-get install -y --no-install-recommends openssh-client \
   && rm -rf /var/lib/apt/lists/* /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx /opt/yarn* /usr/local/bin/yarn* \
   && mkdir -p /data && chown node:node /data
