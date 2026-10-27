@@ -153,7 +153,7 @@ async function runBmcJob(raw: unknown, transport: Transport, keyDir: string): Pr
     try {
       return { ...base, ok: true, facts: await readBmc((path) => session.get(path)) };
     } finally {
-      session.close();
+      await session.close();
     }
   } catch (err) {
     const e = err instanceof BmcError ? err : new BmcError("error", err instanceof Error ? err.message : String(err));

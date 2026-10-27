@@ -127,7 +127,7 @@ describe("BMC jobs from Infrastructure", () => {
     const used: string[] = [];
     const transport: Transport = {
       ...refuse,
-      openSession: (_e, password) => (used.push(password), { get: from(tree("redfish-idrac9.json")), close: () => {} }),
+      openSession: (_e, password) => (used.push(password), { get: from(tree("redfish-idrac9.json")), close: async () => {} }),
     };
     const r = await runJob(job(), { caPrivateKey: "", keyPrivateKey: "" }, transport, dir);
     expect(r).toMatchObject({ jobId: "j1", bmcId: "b1", ok: true, facts: { systems: [{ model: "PowerEdge R650" }] } });
@@ -151,7 +151,7 @@ describe("BMC jobs from Infrastructure", () => {
       {
         ...refuse,
         bmcCertificate: async () => cert,
-        openSession: () => ({ get: () => Promise.reject(new BmcError("certificate-changed", "another certificate")), close: () => {} }),
+        openSession: () => ({ get: () => Promise.reject(new BmcError("certificate-changed", "another certificate")), close: async () => {} }),
       },
       dir,
     );
@@ -172,7 +172,12 @@ describe("Redfish over TLS", () => {
   let server: Server;
   let port: number;
   let fingerprint: string;
-  const requests: Array<{ method: string; url: string; auth: string | undefined }> = [];
+  const requests: Array<{ method: string; url: string; auth: string | undefined; token: string | undefined }> = [];
+  // Like an iDRAC: the service root for anyone, sessions at /redfish/v1/Sessions (iDRAC 8), Basic auth or a token.
+  let sessions = true;
+  const live = new Set<string>();
+  const resetOnce = new Set<string>();
+  let junk = false;
   beforeAll(async () => {
     // A BMC's own certificate, as most have: self-signed.
     const dir = mkdtempSync(join(tmpdir(), "bmc-"));
@@ -187,11 +192,35 @@ describe("Redfish over TLS", () => {
     fingerprint = new X509Certificate(cert).fingerprint256;
     const t = tree("redfish-idrac9.json");
     server = createServer({ key: readFileSync(join(dir, "k")), cert }, (req, res) => {
-      requests.push({ method: req.method!, url: req.url!, auth: req.headers.authorization });
-      if (req.headers.authorization !== `Basic ${Buffer.from("openasy:pw").toString("base64")}`) return res.writeHead(401).end();
-      const body = t[req.url!];
+      const token = req.headers["x-auth-token"] as string | undefined;
+      requests.push({ method: req.method!, url: req.url!, auth: req.headers.authorization, token });
+      if (resetOnce.delete(req.url!)) return req.socket.destroy();
+      if (req.method === "POST" && req.url === "/redfish/v1/Sessions") {
+        if (!sessions) return res.writeHead(405).end();
+        let raw = "";
+        req.on("data", (c: Buffer) => (raw += c));
+        req.on("end", () => {
+          const { UserName, Password } = JSON.parse(raw) as { UserName: string; Password: string };
+          if (UserName !== "openasy" || Password !== "pw") return res.writeHead(401).end();
+          const id = String(live.size + 1);
+          live.add(id);
+          res.writeHead(201, { "x-auth-token": `token-${id}`, location: `/redfish/v1/Sessions/${id}` }).end("{}");
+        });
+        return;
+      }
+      if (req.method === "DELETE") {
+        live.delete(req.url!.split("/").pop()!);
+        return res.writeHead(200).end();
+      }
+      const signedIn = token ? live.has(token.slice("token-".length)) : req.headers.authorization === `Basic ${Buffer.from("openasy:pw").toString("base64")}`;
+      if (req.url !== "/redfish/v1" && !signedIn) return res.writeHead(401).end();
+      const body = req.url === "/redfish/v1" ? { ...t[req.url]!, Links: { Sessions: { "@odata.id": "/redfish/v1/Sessions" } } } : t[req.url!];
       if (!body) return res.writeHead(404).end();
-      res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify(body));
+      const text = JSON.stringify(body);
+      if (!junk) return res.writeHead(200, { "content-type": "application/json" }).end(text);
+      // iDRAC 8's Appweb: a few bytes past the length it gave.
+      res.writeHead(200, { "content-type": "application/json" }).end(text);
+      res.on("finish", () => setTimeout(() => res.socket?.writable && res.socket.end("\nms! "), 5));
     });
     await new Promise<void>((r) => server.listen(0, "127.0.0.1", r));
     port = (server.address() as AddressInfo).port;
@@ -205,16 +234,60 @@ describe("Redfish over TLS", () => {
     expect(requests.length).toBe(before);
   });
 
-  it("reads a BMC that presents the pinned certificate, with GET and Basic auth only", async () => {
+  it("reads a BMC that presents the pinned certificate with one session, and signs out", async () => {
+    const before = requests.length;
     const s = openSession(endpoint([fingerprint]), "pw");
     try {
       const f = await readBmc((p) => s.get(p));
       expect(f.systems[0]!.model).toBe("PowerEdge R650");
       expect(await s.get("/redfish/v1/Nothing")).toBeNull();
     } finally {
-      s.close();
+      await s.close();
     }
-    expect(new Set(requests.map((r) => r.method))).toEqual(new Set(["GET"]));
+    const sent = requests.slice(before);
+    // GET to read; the only POST is the sign-in to the root's session link, the only DELETE the session it made.
+    expect(sent.filter((r) => r.method === "POST").map((r) => r.url)).toEqual(["/redfish/v1/Sessions"]);
+    expect(sent.filter((r) => r.method === "DELETE").map((r) => r.url)).toEqual(["/redfish/v1/Sessions/1"]);
+    expect(sent.filter((r) => r.method === "GET" && r.url !== "/redfish/v1").every((r) => r.token && !r.auth)).toBe(true);
+    expect(live.size).toBe(0);
+  });
+
+  it("reads a BMC without sessions with Basic auth, as before", async () => {
+    sessions = false;
+    const before = requests.length;
+    const s = openSession(endpoint([fingerprint]), "pw");
+    try {
+      expect((await readBmc((p) => s.get(p))).systems[0]!.model).toBe("PowerEdge R650");
+    } finally {
+      await s.close();
+      sessions = true;
+    }
+    const sent = requests.slice(before);
+    expect(sent.filter((r) => r.method === "GET").every((r) => r.auth && !r.token)).toBe(true);
+    expect(sent.some((r) => r.method === "DELETE")).toBe(false);
+  });
+
+  it("reads a BMC that writes past an answer's end, on a connection of its own per request", async () => {
+    junk = true;
+    const s = openSession(endpoint([fingerprint]), "pw");
+    try {
+      expect((await readBmc((p) => s.get(p))).systems[0]!.model).toBe("PowerEdge R650");
+    } finally {
+      await s.close();
+      junk = false;
+    }
+    expect(live.size).toBe(0);
+  });
+
+  it("sends a GET once more when the BMC drops the connection under it", async () => {
+    resetOnce.add("/redfish/v1/Systems");
+    const s = openSession(endpoint([fingerprint]), "pw");
+    try {
+      expect((await readBmc((p) => s.get(p))).systems[0]!.model).toBe("PowerEdge R650");
+    } finally {
+      await s.close();
+    }
+    expect(resetOnce.size).toBe(0);
   });
 
   it("sends nothing to a BMC that presents another certificate", async () => {
@@ -223,7 +296,7 @@ describe("Redfish over TLS", () => {
     try {
       await expect(s.get("/redfish/v1")).rejects.toMatchObject({ kind: "certificate-changed" });
     } finally {
-      s.close();
+      await s.close();
     }
     expect(requests.length).toBe(before);
   });
@@ -237,7 +310,7 @@ describe("Redfish over TLS", () => {
         await expect(s.get(p)).rejects.toMatchObject({ kind: "not-redfish" });
       expect(requests.length).toBe(before);
     } finally {
-      s.close();
+      await s.close();
     }
   });
 });

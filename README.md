@@ -49,9 +49,12 @@ Next to Infrastructure, its compose file has the agent already. The agent must b
 
 The agent also reads the BMCs (iDRAC, iLO, XClarity and others) listed under `bmcs:` in the hosts file (ADR 0055):
 
-- **GET only.** Its Redfish client (`agent/redfish.ts`) has no other method, follows the BMC's own links only under
-  `/redfish/v1` and never to an action, and stops at 600 requests or 4 minutes. A compromised Infrastructure can make
-  it read a BMC, never power a server off, change a setting or start an update.
+- **GET only, in one session.** Its Redfish client (`agent/redfish.ts`) reads with GET, follows the BMC's own links
+  only under `/redfish/v1` and never to an action, and stops at 600 requests or 8 minutes. Its only other requests are
+  its own sign-in to the BMC's session collection and the sign-out of that session (ADR 0056): with the token, an
+  iDRAC answers in about a second instead of checking the password again each time. A BMC without sessions is read
+  with Basic auth. A compromised Infrastructure can make it read a BMC, never power a server off, change a setting or
+  start an update.
 - **The password stays here.** A BMC names a file in the key folder; the agent reads it for each collection, and
   only the parsed facts leave (`agent/bmc.ts`). Use an account with the `ReadOnly` role.
 - **The certificate is pinned.** The agent writes a request only on a connection whose certificate has a fingerprint
